@@ -1846,19 +1846,87 @@ function gerarTextoFechamento() {
             v => v.data === dados.dataAtual
         );
 
-
     const saidas =
         dados.saidas.filter(
             s => s.data === dados.dataAtual
         );
 
+    // Vendas por forma de pagamento
+    let dinheiroVendas = 0;
+    let pix = 0;
+    let debito = 0;
+    let credito = 0;
+    let fiado = 0;
 
-    const total =
+    vendas.forEach(v => {
+
+        if (v.pagamento === "Dinheiro")
+            dinheiroVendas += v.total;
+
+        if (v.pagamento === "Pix")
+            pix += v.total;
+
+        if (v.pagamento === "Débito")
+            debito += v.total;
+
+        if (v.pagamento === "Crédito")
+            credito += v.total;
+
+        if (v.pagamento === "Fiado")
+            fiado += v.total;
+
+    });
+
+    // Pagamentos de fiados recebidos neste dia
+    const pagamentosFiado =
+        dados.fiados.filter(
+            f =>
+                f.status === "Pago" &&
+                f.dataPagamento === dados.dataAtual
+        );
+
+    let pagamentosDinheiro = 0;
+    let pagamentosPix = 0;
+    let pagamentosDebito = 0;
+    let pagamentosCredito = 0;
+
+    pagamentosFiado.forEach(f => {
+
+        if (f.pagamento === "Dinheiro")
+            pagamentosDinheiro += f.valor;
+
+        if (f.pagamento === "Pix")
+            pagamentosPix += f.valor;
+
+        if (f.pagamento === "Débito")
+            pagamentosDebito += f.valor;
+
+        if (f.pagamento === "Crédito")
+            pagamentosCredito += f.valor;
+
+    });
+
+    // Fiados registrados no dia
+    const fiadosDoDia =
+        dados.fiados.filter(
+            f => f.data === dados.dataAtual
+        );
+
+    const fiadosPendentes =
+        fiadosDoDia.filter(
+            f => f.status === "Pendente"
+        );
+
+    const fiadosPagos =
+        fiadosDoDia.filter(
+            f => f.status === "Pago"
+        );
+
+    const totalVendas =
         vendas.reduce(
             (s, v) => s + v.total,
             0
         );
-
 
     const totalSaidas =
         saidas.reduce(
@@ -1866,19 +1934,102 @@ function gerarTextoFechamento() {
             0
         );
 
+    const totalEntradas =
+        dinheiroVendas +
+        pix +
+        debito +
+        credito +
+        pagamentosDinheiro +
+        pagamentosPix +
+        pagamentosDebito +
+        pagamentosCredito;
+
+    const totalFiadosPendentes =
+        fiadosPendentes.reduce(
+            (s, f) => s + f.valor,
+            0
+        );
+
+    const totalFiadosPagos =
+        fiadosPagos.reduce(
+            (s, f) => s + f.valor,
+            0
+        );
 
     return `
 MEU CAIXA
 
 Data: ${formatarData(dados.dataAtual)}
 
-Total de vendas:
-${dinheiro(total)}
+========================
+ENTRADAS
+========================
 
-Saídas:
+Vendas em dinheiro:
+${dinheiro(dinheiroVendas)}
+
+Vendas no Pix:
+${dinheiro(pix)}
+
+Vendas no débito:
+${dinheiro(debito)}
+
+Vendas no crédito:
+${dinheiro(credito)}
+
+Vendas fiadas:
+${dinheiro(fiado)}
+
+------------------------
+
+Pagamentos de fiados em dinheiro:
+${dinheiro(pagamentosDinheiro)}
+
+Pagamentos de fiados no Pix:
+${dinheiro(pagamentosPix)}
+
+Pagamentos de fiados no débito:
+${dinheiro(pagamentosDebito)}
+
+Pagamentos de fiados no crédito:
+${dinheiro(pagamentosCredito)}
+
+------------------------
+
+TOTAL DE ENTRADAS RECEBIDAS:
+${dinheiro(totalEntradas)}
+
+TOTAL DE VENDAS:
+${dinheiro(totalVendas)}
+
+========================
+FIADOS
+========================
+
+Fiados pendentes:
+${dinheiro(totalFiadosPendentes)}
+
+Fiados pagos:
+${dinheiro(totalFiadosPagos)}
+
+${fiadosDoDia.length > 0
+    ? fiadosDoDia.map(f =>
+        `${f.pessoa} - ${dinheiro(f.valor)} - ${f.status}`
+      ).join("\n")
+    : "Nenhum fiado registrado neste dia."
+}
+
+========================
+SAÍDAS
+========================
+
+Total de saídas:
 ${dinheiro(totalSaidas)}
 
-Caixa inicial:
+========================
+CAIXA INICIAL
+========================
+
 ${dinheiro(dados.caixaInicial)}
 
 Gerado pelo Meu Caixa.
