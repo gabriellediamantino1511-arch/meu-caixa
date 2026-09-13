@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu Caixa</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f4f4;
+    color: #222;
+}
+
+.app {
+    max-width: 600px;
+    margin: auto;
+    min-height: 100vh;
+    background: white;
+}
+
+header {
+    background: #222;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 25px;
+}
+
+header p {
+    margin: 7px 0 0;
+    font-size: 14px;
+}
+
+main {
+    padding: 18px;
+}
+
+.card {
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.resumo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.valor {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 6px;
+}
+
+.menu {
+    display: grid;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+button {
+    width: 100%;
+    border: 0;
+    padding: 14px;
+    border-radius: 9px;
+    background: #222;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button.secundario {
+    background: #ddd;
+    color: #222;
+}
+
+button.perigo {
+    background: #b00020;
+}
+
+button.pequeno {
+    padding: 9px;
+    font-size: 13px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+input:read-only {
+    background: #eee;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 12px;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.linha {
+    display: flex;
+    gap: 8px;
+}
+
+.linha > * {
+    flex: 1;
+}
+
+.item {
+    background: #f5f5f5;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 10px;
+}
+
+.item strong {
+    font-size: 17px;
+}
+
+.item-acoes {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.item-acoes button {
+    font-size: 12px;
+    padding: 8px;
+}
+
+.total-box {
+    background: #222;
+    color: white;
+    padding: 16px;
+    border-radius: 10px;
+    margin: 15px 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.oculto {
+    display: none;
+}
+
+.separador {
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+
+.vazio {
+    text-align: center;
+    color: #777;
+    padding: 25px 10px;
+}
+
+.alerta {
+    background: #fff3cd;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.sucesso {
+    background: #d1e7dd;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 450px) {
+    main {
+        padding: 12px;
+    }
+
+    .resumo {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+    <h1>MEU CAIXA</h1>
+    <p id="dataAtual"></p>
+</header>
+
+<main id="app"></main>
+
+</div>
+
+<script>
+
+const CHAVE = "meuCaixaDados";
+
+let dados = JSON.parse(localStorage.getItem(CHAVE)) || {
+    produtos: [],
+    vendas: [],
+    saidas: [],
+    fiados: [],
+    dias: [],
+    caixaInicial: 0,
+    dataAtual: hoje()
+};
+
+
+/* =========================
+   FUNÇÕES BÁSICAS
+========================= */
+
+function hoje() {
+    const d = new Date();
+
+    const ano = d.getFullYear();
+    const mes = String(d.getMonth() + 1).padStart(2, "0");
+    const dia = String(d.getDate()).padStart(2, "0");
+
+    return `${ano}-${mes}-${dia}`;
+}
+
+
+function formatarData(data) {
+    if (!data) return "";
+
+    const partes = data.split("-");
+
+    return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
+
+
+function dinheiro(valor) {
+    return Number(valor || 0).toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    });
+}
+
+
+function salvar() {
+    localStorage.setItem(CHAVE, JSON.stringify(dados));
+}
+
+
+function id() {
+    return Date.now() + Math.random();
+}
+
+
+function atualizarData() {
+    document.getElementById("dataAtual").innerText =
+        formatarData(dados.dataAtual);
+}
+
+
+/* =========================
+   INÍCIO
+========================= */
+
+function inicio() {
+
+    atualizarData();
+
+    const vendasHoje =
+        dados.vendas.filter(v => v.data === dados.dataAtual);
+
+    const saidasHoje =
+        dados.saidas.filter(s => s.data === dados.dataAtual);
+
+    const fiadosHoje =
+        dados.fiados.filter(f =>
+            f.data === dados.dataAtual &&
+            f.status === "Pendente"
+        );
+
+    const totalVendas =
+        vendasHoje.reduce((s, v) => s + v.total, 0);
+
+    const totalSaidas =
+        saidasHoje.reduce((s, v) => s + v.valor, 0);
+
+    const totalFiados =
+        fiadosHoje.reduce((s, v) => s + v.valor, 0);
+
+
+    document.getElementById("app").innerHTML = `
+
+        <div class="card">
+            <strong>Caixa inicial</strong>
+            <div class="valor">${dinheiro(dados.caixaInicial)}</div>
+        </div>
+
+        <div class="resumo">
+
+            <div class="card">
+                <strong>Vendas</strong>
+                <div class="valor">${dinheiro(totalVendas)}</div>
+            </div>
+
+            <div class="card">
+                <strong>Saídas</strong>
+                <div class="valor">${dinheiro(totalSaidas)}</div>
+            </div>
+
+            <div class="card">
+                <strong>Fiados</strong>
+                <div class="valor">${dinheiro(totalFiados)}</div>
+            </div>
+
+            <div class="card">
+                <strong>Produtos</strong>
+                <div class="valor">${dados.produtos.length}</div>
+            </div>
+
+        </div>
+
+        <div class="menu">
+
+            <button onclick="novaVenda()">
+                🛒 Nova venda
+            </button>
+
+            <button onclick="estoque()">
+                📦 Estoque
+            </button>
+
+            <button onclick="fiados()">
+                👤 Fiados
+            </button>
+
+            <button onclick="novaSaida()">
+                💸 Saídas
+            </button>
+
+            <button onclick="fechamento()">
+                📊 Fechamento
+            </button>
+
+            <button onclick="historico()">
+                📚 Histórico
+            </button>
+
+            <button onclick="cadastroProdutos()">
+                ⚙️ Produtos
+            </button>
+
+            <button onclick="novoDia()">
+                📅 Novo dia
+            </button>
+
+            <button onclick="backup()">
+                💾 Backup
+            </button>
+
+        </div>
+    `;
+}
+
+
+/* =========================
+   PRODUTOS
+========================= */
+
+function cadastroProdutos() {
+
+    let lista = "";
+
+    if (dados.produtos.length === 0) {
+
+        lista = `
+            <div class="vazio">
+                Nenhum produto cadastrado.
+            </div>
+        `;
+
+    } else {
+
+        dados.produtos.forEach((p, i) => {
+
+            lista += `
+
+                <div class="item">
+
+                    <strong>${p.nome}</strong>
+
+                    <br>
+                    Preço: ${dinheiro(p.preco)}
+                    <br>
+                    Estoque: ${p.estoque}
+
+                    <div class="item-acoes">
+
+                        <button
+                            onclick="editarProduto(${i})">
+                            Editar
+                        </button>
+
+                        <button
+                            class="perigo"
+                            onclick="excluirProduto(${i})">
+                            Excluir
+                        </button>
+
+                    </div>
+
+                </div>
+            `;
+        });
+    }
+
+
+    document.getElementById("app").innerHTML = `
+
+        <h2>Cadastro de produtos</h2>
+
+        <div class="card">
+
+            <label>Nome do produto</label>
+
+            <input
+                id="nomeProduto"
+                placeholder="Ex.: Coxinha"
+            >
+
+            <label>Preço</label>
+
+            <input
+                id="precoProduto"
+                type="number"
+                step="0.01"
+                min="0"
+                placeholder="0,00"
+            >
+
+            <label>Quantidade em estoque</label>
+
+            <input
+                id="estoqueProduto"
+                type="number"
+                min="0"
+                value="0"
+            >
+
+            <br><br>
+
+            <button onclick="cadastrarProduto()">
+                Cadastrar produto
+            </button>
+
+        </div>
+
+        <hr class="separador">
+
+        <h2>Produtos cadastrados</h2>
+
+        ${lista}
+
+        <button
+            class="secundario"
+            onclick="inicio()">
+            Voltar
+        </button>
+    `;
+}
+
+
+function cadastrarProduto() {
+
+    const nome =
+        document.getElementById("nomeProduto").value.trim();
+
+    const preco =
+        Number(document.getElementById("precoProduto").value);
+
+    const estoque =
+        Number(document.getElementById("estoqueProduto").value);
+
+
+    if (!nome || preco <= 0) {
+
+        alert("Informe o nome e um preço válido.");
+
+        return;
+    }
+
+
+    dados.produtos.push({
+
+        id: id(),
+        nome: nome,
+        preco: preco,
+        estoque: estoque
+
+    });
+
+
+    salvar();
+
+    alert("Produto cadastrado!");
+
+    cadastroProdutos();
+}
+
+
+function editarProduto(i) {
+
+    const p = dados.produtos[i];
+
+    const nome =
+        prompt("Nome do produto:", p.nome);
+
+    if (nome === null) return;
+
+
+    const preco =
+        Number(prompt("Preço:", p.preco));
+
+    if (isNaN(preco) || preco <= 0) {
+
+        alert("Preço inválido.");
+
+        return;
+    }
+
+
+    const estoque =
+        Number(prompt("Estoque atual:", p.estoque));
+
+    if (isNaN(estoque) || estoque < 0) {
+
+        alert("Estoque inválido.");
+
+        return;
+    }
+
+
+    p.nome = nome;
+    p.preco = preco;
+    p.estoque = estoque;
+
+    salvar();
+
+    cadastroProdutos();
+}
+
+
+function excluirProduto(i) {
+
+    const p = dados.produtos[i];
+
+    if (!confirm(`Excluir ${p.nome}?`)) return;
+
+    dados.produtos.splice(i, 1);
+
+    salvar();
+
+    cadastroProdutos();
+}
+
+
+/* =========================
+   ESTOQUE
+========================= */
+
+function estoque() {
+
+    let lista = "";
+
+    dados.produtos.forEach((p, i) => {
+
+        lista += `
+
+            <div class="item">
+
+                <strong>${p.nome}</strong>
+
+                <br>
+                Estoque atual:
+                <strong>${p.estoque}</strong>
+
+                <div class="item-acoes">
+
+                    <button onclick="entradaEstoque(${i})">
+                        + Entrada
+                    </button>
+
+                    <button onclick="ajustarEstoque(${i})">
+                        Ajustar
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+    });
+
+
+    if (!lista) {
+
+        lista = `
+            <div class="vazio">
+                Cadastre produtos primeiro.
+            </div>
+        `;
+    }
+
+
+    document.getElementById("app").innerHTML = `
+
+        <h2>Estoque</h2>
+
+        ${lista}
+
+        <button
+            class="secundario"
+            onclick="inicio()">
+            Voltar
+        </button>
+    `;
+}
+
+
+function entradaEstoque(i) {
+
+    const quantidade =
+        Number(prompt("Quantas unidades entraram?"));
+
+    if (isNaN(quantidade) || quantidade <= 0) {
+
+        alert("Quantidade inválida.");
+
+        return;
+    }
+
+
+    dados.produtos[i].estoque += quantidade;
+
+    salvar();
+
+    estoque();
+}
+
+
+function ajustarEstoque(i) {
+
+    const quantidade =
+        Number(prompt(
+            "Informe a nova quantidade em estoque:",
+            dados.produtos[i].estoque
+        ));
+
+    if (isNaN(quantidade) || quantidade < 0) {
+
+        alert("Quantidade inválida.");
+
+        return;
+    }
+
+
+    dados.produtos[i].estoque = quantidade;
+
+    salvar();
+
+    estoque();
+}
+
+
+/* =========================
+   NOVA VENDA
+========================= */
+
+let carrinho = [];
+
+
+function novaVenda() {
+
+    carrinho = [];
+
+    mostrarVenda();
+}
+
+
+function mostrarVenda() {
+
+    let opcoes = `
+        <option value="">
+            Selecione um produto
+        </option>
+    `;
+
+
+    dados.produtos.forEach((p, i) => {
+
+        opcoes += `
+            <option value="${i}">
+                ${p.nome} - ${dinheiro(p.preco)}
+                | Estoque: ${p.estoque}
+            </option>
+        `;
+
+    });
+
+
+    let itens = "";
+
+    carrinho.forEach((item, i) => {
+
+        itens += `
+
+            <div class="item">
+
+                <strong>${item.nome}</strong>
+
+                <br>
+
+                ${item.quantidade} x
+                ${dinheiro(item.preco)}
+
+                =
+
+                <strong>
+                    ${dinheiro(item.total)}
+                </strong>
+
+                <div class="item-acoes">
+
+                    <button
+                        class="perigo"
+                        onclick="removerCarrinho(${i})">
+                        Remover
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+    });
+
+
+    const total =
+        carrinho.reduce(
+            (s, item) => s + item.total,
+            0
+        );
+
+
+    document.getElementById("app").innerHTML = `
+
+        <h2>Nova venda</h2>
+
+        <div class="card">
+
+            <label>Produto</label>
+
+            <select id="produtoVenda"
+                onchange="preencherPrecoVenda()">
+
+                ${opcoes}
+
+            </select>
+
+
+            <label>Quantidade</label>
+
+            <input
+                id="quantidadeVenda"
+                type="number"
+                min="1"
+                value="1"
+            >
+
+
+            <label>Valor unitário</label>
+
+            <input
+                id="valorVenda"
+                readonly
+            >
+
+
+            <br><br>
+
+            <button onclick="adicionarCarrinho()">
+                Adicionar produto
+            </button>
+
+        </div>
+
+
+        <h3>Itens da venda</h3>
+
+        ${itens || `
+            <div class="vazio">
+                Nenhum produto adicionado.
+            </div>
+        `}
+
+
+        <div class="total-box">
+            Total: ${dinheiro(total)}
+        </div>
+
+
+        <div class="card">
+
+            <label>Forma de pagamento</label>
+
+            <select id="pagamentoVenda">
+
+                <option>Dinheiro</option>
+                <option>Pix</option>
+                <option>Débito</option>
+                <option>Crédito</option>
+                <option>Fiado</option>
+
+            </select>
+
+        </div>
+
+
+        <button onclick="registrarVenda()">
+            Registrar venda
+        </button>
+
+        <br><br>
+
+        <button
+            class="secundario"
+            onclick="inicio()">
+            Cancelar
+        </button>
+    `;
+}
+
+
+function preencherPrecoVenda() {
+
+    const indice =
+        document.getElementById("produtoVenda").value;
+
+    const campo =
+        document.getElementById("valorVenda");
+
+
+    if (indice === "") {
+
+        campo.value = "";
+
+        return;
+    }
+
+
+    campo.value =
+        dados.produtos[indice].preco.toFixed(2);
+}
+
+
+function adicionarCarrinho() {
+
+    const indice =
+        document.getElementById("produtoVenda").value;
+
+    const quantidade =
+        Number(
+            document.getElementById("quantidadeVenda").value
+        );
+
+
+    if (indice === "") {
+
+        alert("Selecione um produto.");
+
+        return;
+    }
+
+
+    if (quantidade <= 0) {
+
+        alert("Quantidade inválida.");
+
+        return;
+    }
+
+
+    const produto =
+        dados.produtos[indice];
+
+
+    if (quantidade > produto.estoque) {
+
+        alert(
+            `Estoque insuficiente.\
+            Disponível: ${produto.estoque}`
+        );
+
+        return;
+    }
+
+
+    const existente =
+        carrinho.find(
+            item => item.produtoId === produto.id
+        );
+
+
+    if (existente) {
+
+        if (
+            existente.quantidade + quantidade
+            > produto.estoque
+        ) {
+
+            alert("Quantidade maior que o estoque.");
+
+            return;
+        }
+
+
+        existente.quantidade += quantidade;
+
+        existente.total =
+            existente.quantidade *
+            existente.preco;
+
+    } else {
+
+        carrinho.push({
+
+            produtoId: produto.id,
+
+            nome: produto.nome,
+
+            preco: produto.preco,
+
+            quantidade: quantidade,
+
+            total: produto.preco * quantidade
+
+        });
+
+    }
+
+
+    mostrarVenda();
+}
+
+
+function removerCarrinho(i) {
+
+    carrinho.splice(i, 1);
+
+    mostrarVenda();
+}
+
+
+function registrarVenda() {
+
+    if (carrinho.length === 0) {
+
+        alert("Adicione pelo menos um produto.");
+
+        return;
+    }
+
+
+    const pagamento =
+        document.getElementById("pagamentoVenda").value;
+
+
+    const total =
+        carrinho.reduce(
+            (s, item) => s + item.total,
+            0
+        );
+
+
+    if (pagamento === "Fiado") {
+
+        const pessoa =
+            prompt("Nome da pessoa:");
+
+        if (!pessoa) {
+
+            alert("Informe o nome da pessoa.");
+
+            return;
+        }
+
+
+        dados.fiados.push({
+
+            id: id(),
+
+            pessoa: pessoa,
+
+            valor: total,
+
+            data: dados.dataAtual,
+
+            status: "Pendente",
+
+            pagamento: null
+
+        });
+    }
+
+
+    carrinho.forEach(item => {
+
+        const produto =
+            dados.produtos.find(
+                p => p.id === item.produtoId
+            );
+
+        produto.estoque -= item.quantidade;
+
+    });
+
+
+    dados.vendas.push({
+
+        id: id(),
+
+        data: dados.dataAtual,
+
+        itens: JSON.parse(
+            JSON.stringify(carrinho)
+        ),
+
+        total: total,
+
+        pagamento: pagamento
+
+    });
+
+
+    salvar();
+
+    carrinho = [];
+
+    alert("Venda registrada com sucesso!");
+
+    inicio();
+}
+
+
+/* =========================
+   SAÍDAS
+========================= */
+
+function novaSaida() {
+
+    document.getElementById("app").innerHTML = `
+
+        <h2>Nova saída</h2>
+
+        <div class="card">
+
+            <label>Motivo</label>
+
+            <input
+                id="motivoSaida"
+                placeholder="Ex.: Compra de material"
+            >
+
+
+            <label>Valor</label>
+
+            <input
+                id="valorSaida"
+                type="number"
+                step="0.01"
+                min="0"
+                placeholder="0,00"
+            >
+
+
+            <label>Forma de pagamento</label>
+
+            <select id="pagamentoSaida">
+
+                <option>Dinheiro</option>
+                <option>Pix</option>
+                <option>Débito</option>
+                <option>Crédito</option>
+
+            </select>
+
+        </div>
+
+
+        <button onclick="registrarSaida()">
+            Registrar saída
+        </button>
+
+        <br><br>
+
+        <button
+            class="secundario"
+            onclick="inicio()">
+            Voltar
+        </button>
+    `;
+}
+
+
+function registrarSaida() {
+
+    const motivo =
+        document.getElementById("motivoSaida").value.trim();
+
+    const valor =
+        Number(document.getElementById("valorSaida").value);
+
+    const pagamento =
+        document.getElementById("pagamentoSaida").value;
+
+
+    if (!motivo || valor <= 0) {
+
+        alert("Preencha os dados corretamente.");
+
+        return;
+    }
+
+
+    dados.saidas.push({
+
+        id: id(),
+
+        motivo: motivo,
+
+        valor: valor,
+
+        pagamento: pagamento,
+
+        data: dados.dataAtual
+
+    });
+
+
+    salvar();
+
+    alert("Saída registrada!");
+
+    inicio();
+}
+
+
+/* =========================
+   FIADOS
+========================= */
+
+function fiados() {
+
+    const lista =
+        dados.fiados.filter(
+            f => f.status === "Pendente"
+        );
+
+
+    let html = "";
+
+
+    if (lista.length === 0) {
+
+        html = `
+            <div class="vazio">
+                Nenhum fiado pendente.
+            </div>
+        `;
+
+    } else {
+
+        lista.forEach(f => {
+
+            html += `
+
+                <div class="item">
+
+                    <strong>${f.pessoa}</strong>
+
+                    <br>
+
+                    Valor:
+                    <strong>${dinheiro(f.valor)}</strong>
+
+                    <br>
+
+                    Data: ${formatarData(f.data)}
+
+                    <div class="item-acoes">
+
+                        <button
+                            onclick="pagarFiado(${f.id})">
+                            Registrar pagamento
+                        </button>
+
+                    </div>
+
+                </div>
+            `;
+        });
+    }
+
+
+    document.getElementById("app").innerHTML = `
+
+        <h2>Fiados</h2>
+
+        ${html}
+
+        <button onclick="novoFiado()">
+            + Novo fiado
+        </button>
+
+        <br><br>
+
+        <button
+            class="secundario"
+            onclick="inicio()">
+            Voltar
+        </button>
+    `;
+}
+
+
+function novoFiado() {
+
+    const pessoa =
+        prompt("Nome da pessoa:");
+
+    if (!pessoa) return;
+
+
+    const valor =
+        Number(prompt("Valor do fiado:"));
+
+
+    if (isNaN(valor) || valor <= 0) {
+
+        alert("Valor inválido.");
+
+        return;
+    }
+
+
+    dados.fiados.push({
+
+        id: id(),
+
+        pessoa: pessoa,
+
+        valor: valor,
+
+        data: dados.dataAtual,
+
+        status: "Pendente",
+
+        pagamento: null
+
+    });
+
+
+    salvar();
+
+    fiados();
+}
+
+
+function pagarFiado(fiadoId) {
+
+    const fiado =
+        dados.fiados.find(
+            f => f.id === fiadoId
+        );
+
+
+    if (!fiado) return;
+
+
+    const pagamento =
+        prompt(
+            "Forma de pagamento:\n\n" +
+            "Dinheiro\n" +
+            "Pix\n" +
+            "Débito\n" +
+            "Crédito"
+        );
+
+
+    if (!pagamento) return;
+
+
+    fiado.status = "Pago";
+
+    fiado.pagamento = pagamento;
+
+    fiado.dataPagamento = dados.dataAtual;
+
+
+    salvar();
+
+    alert("Pagamento registrado!");
+
+    fiados();
+}
+
+
+/* =========================
+   FECHAMENTO
+========================= */
+
+function fechamento() {
+
+    const vendas =
+        dados.vendas.filter(
+            v => v.data === dados.dataAtual
+        );
+
+
+    const saidas =
+        dados.saidas.filter(
+            s => s.data === dados.dataAtual
+        );
+
+
+    let dinheiroVendas = 0;
+    let pix = 0;
+    let debito = 0;
+    let credito = 0;
+    let fiado = 0;
+
+
+    vendas.forEach(v => {
+
+        if (v.pagamento === "Dinheiro")
+            dinheiroVendas += v.total;
+
+        if (v.pagamento === "Pix")
+            pix += v.total;
+
+        if (v.pagamento === "Débito")
+            debito += v.total;
+
+        if (v.pagamento === "Crédito")
+            credito += v.total;
+
+        if (v.pagamento === "Fiado")
+            fiado += v.total;
+
+    });
+
+
+    let saidasDinheiro = 0;
+
+    saidas.forEach(s => {
+
+        if (s.pagamento === "Dinheiro") {
+
+            saidasDinheiro += s.valor;
+
+        }
+
+    });
+
+
+    const pagamentosFiado =
+        dados.fiados.filter(
+            f =>
+                f.status === "Pago" &&
+                f.dataPagamento === dados.dataAtual
+        );
+
+
+    let pagamentosDinheiro = 0;
+
+    let pagamentosPix = 0;
+
+    let pagamentosDebito = 0;
+
+    let pagamentosCredito = 0;
+
+
+    pagamentosFiado.forEach(f => {
+
+        if (f.pagamento === "Dinheiro")
+            pagamentosDinheiro += f.valor;
+
+        if (f.pagamento === "Pix")
+            pagamentosPix += f.valor;
+
+        if (f.pagamento === "Débito")
+            pagamentosDebito += f.valor;
+
+        if (f.pagamento === "Crédito")
+            pagamentosCredito += f.valor;
+
+    });
+
+
+    const totalEntradas =
+        dinheiroVendas +
+        pix +
+        debito +
+        credito;
+
+
+    const caixaEsperado =
+        dados.caixaInicial +
+        dinheiroVendas +
+        pagamentosDinheiro -
+        saidasDinheiro;
+
+
+    document.getElementById("app").innerHTML = `
+
+        <h2>Fechamento</h2>
+
+        <div class="card">
+
+            <strong>Data</strong>
+
+            <div class="valor">
+                ${formatarData(dados.dataAtual)}
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Entradas</h3>
+
+            Dinheiro:
+            <strong>${dinheiro(dinheiroVendas)}</strong>
+            <br><br>
+
+            Pix:
+            <strong>${dinheiro(pix)}</strong>
+            <br><br>
+
+            Débito:
+            <strong>${dinheiro(debito)}</strong>
+            <br><br>
+
+            Crédito:
+            <strong>${dinheiro(credito)}</strong>
+            <br><br>
+
+            Fiados:
+            <strong>${dinheiro(fiado)}</strong>
+
+            <hr>
+
+            Total de vendas:
+            <strong>${dinheiro(
+                vendas.reduce(
+                    (s, v) => s + v.total,
+                    0
+                )
+            )}</strong>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Pagamentos de fiados</h3>
+
+            Dinheiro:
+            ${dinheiro(pagamentosDinheiro)}
+
+            <br>
+
+            Pix:
+            ${dinheiro(pagamentosPix)}
+
+            <br>
+
+            Débito:
+            ${dinheiro(pagamentosDebito)}
+
+            <br>
+
+            Crédito:
+            ${dinheiro(pagamentosCredito)}
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Saídas</h3>
+
+            Total:
+            <strong>
+                ${dinheiro(
+                    saidas.reduce(
+                        (s, x) => s + x.valor,
+                        0
+                    )
+                )}
+            </strong>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Caixa</h3>
+
+            Caixa inicial:
+            ${dinheiro(dados.caixaInicial)}
+
+            <br><br>
+
+            <strong>
+                Caixa esperado:
+                ${dinheiro(caixaEsperado)}
+            </strong>
+
+            <label>
+                Dinheiro contado
+            </label>
+
+            <input
+                id="caixaContado"
+                type="number"
+                step="0.01"
+                placeholder="0,00"
+            >
+
+            <br><br>
+
+            <button onclick="calcularDiferenca(${caixaEsperado})">
+                Calcular diferença
+            </button>
+
+            <p id="diferenca"></p>
+
+        </div>
+
+
+        <button onclick="compartilharFechamento()">
+            📤 Compartilhar fechamento
+        </button>
+
+        <br><br>
+
+        <button
+            class="secundario"
+            onclick="inicio()">
+            Voltar
+        </button>
+    `;
+}
+
+
+function calcularDiferenca(esperado) {
+
+    const contado =
+        Number(
+            document.getElementById("caixaContado").value
+        );
+
+
+    const diferenca =
+        contado - esperado;
+
+
+    document.getElementById("diferenca").innerHTML = `
+
+        Caixa contado:
+        <strong>${dinheiro(contado)}</strong>
+
+        <br>
+
+        Diferença:
+        <strong>${dinheiro(diferenca)}</strong>
+
+    `;
+}
+
+
+/* =========================
+   HISTÓRICO
+========================= */
+
+function historico() {
+
+    const datas = new Set();
+
+
+    dados.vendas.forEach(v => datas.add(v.data));
+    dados.saidas.forEach(s => datas.add(s.data));
+    dados.fiados.forEach(f => datas.add(f.data));
+
+
+    const lista =
+        Array.from(datas).sort().reverse();
+
+
+    let html = "";
+
+
+    if (lista.length === 0) {
+
+        html = `
+            <div class="vazio">
+                Ainda não há histórico.
+            </div>
+        `;
+
+    } else {
+
+        lista.forEach(data => {
+
+            const total =
+                dados.vendas
+                    .filter(v => v.data === data)
+                    .reduce(
+                        (s, v) => s + v.total,
+                        0
+                    );
+
+
+            html += `
+
+                <div class="item">
+
+                    <strong>
+                        ${formatarData(data)}
+                    </strong>
+
+                    <br>
+
+                    Vendas:
+                    ${dinheiro(total)}
+
+                    <div class="item-acoes">
+
+                        <button
+                            onclick="detalhesDia('${data}')">
+                            Ver detalhes
+                        </button>
+
+                    </div>
+
+                </div>
+            `;
+        });
+    }
+
+
+    document.getElementById("app").innerHTML = `
+
+        <h2>Histórico</h2>
+
+        ${html}
+
+        <button
+            class="secundario"
+            onclick="inicio()">
+            Voltar
+        </button>
+    `;
+}
+
+
+function detalhesDia(data) {
+
+    const vendas =
+        dados.vendas.filter(
+            v => v.data === data
+        );
+
+
+    const saidas =
+        dados.saidas.filter(
+            s => s.data === data
+        );
+
+
+    let html = `
+
+        <h2>${formatarData(data)}</h2>
+
+        <h3>Vendas</h3>
+    `;
+
+
+    if (vendas.length === 0) {
+
+        html += `
+            <div class="vazio">
+                Nenhuma venda.
+            </div>
+        `;
+
+    } else {
+
+        vendas.forEach(v => {
+
+            html += `
+
+                <div class="item">
+
+                    <strong>
+                        ${dinheiro(v.total)}
+                    </strong>
+
+                    <br>
+
+                    Pagamento:
+                    ${v.pagamento}
+
+                    <br><br>
+
+                    ${v.itens.map(
+                        item =>
+                        `${item.quantidade}x ${item.nome}`
+                    ).join("<br>")}
+
+                </div>
+            `;
+        });
+    }
+
+
+    html += `<h3>Saídas</h3>`;
+
+
+    saidas.forEach(s => {
+
+        html += `
+
+            <div class="item">
+
+                ${s.motivo}
+
+                <br>
+
+                ${dinheiro(s.valor)}
+
+                <br>
+
+                ${s.pagamento}
+
+            </div>
+        `;
+    });
+
+
+    html += `
+
+        <button
+            class="secundario"
+            onclick="historico()">
+            Voltar
+        </button>
+    `;
+
+
+    document.getElementById("app").innerHTML = html;
+}
+
+
+/* =========================
+   NOVO DIA
+========================= */
+
+function novoDia() {
+
+    const novaData =
+        prompt(
+            "Digite a data do novo dia (AAAA-MM-DD):",
+            hoje()
+        );
+
+
+    if (!novaData) return;
+
+
+    const caixa =
+        Number(
+            prompt(
+                "Qual será o caixa inicial deste dia?",
+                "0"
+            )
+        );
+
+
+    if (isNaN(caixa) || caixa < 0) {
+
+        alert("Valor inválido.");
+
+        return;
+    }
+
+
+    dados.dataAtual = novaData;
+
+    dados.caixaInicial = caixa;
+
+
+    salvar();
+
+    inicio();
+}
+
+
+/* =========================
+   COMPARTILHAR
+========================= */
+
+function gerarTextoFechamento() {
+
+    const vendas =
+        dados.vendas.filter(
+            v => v.data === dados.dataAtual
+        );
+
+
+    const saidas =
+        dados.saidas.filter(
+            s => s.data === dados.dataAtual
+        );
+
+
+    const total =
+        vendas.reduce(
+            (s, v) => s + v.total,
+            0
+        );
+
+
+    const totalSaidas =
+        saidas.reduce(
+            (s, v) => s + v.valor,
+            0
+        );
+
+
+    return `
+MEU CAIXA
+
+Data: ${formatarData(dados.dataAtual)}
+
+Total de vendas:
+${dinheiro(total)}
+
+Saídas:
+${dinheiro(totalSaidas)}
+
+Caixa inicial:
+${dinheiro(dados.caixaInicial)}
+
+Gerado pelo Meu Caixa.
+`;
+}
+
+
+function compartilharFechamento() {
+
+    const texto =
+        gerarTextoFechamento();
+
+
+    if (
+        navigator.share
+    ) {
+
+        navigator.share({
+
+            title: "Fechamento Meu Caixa",
+
+            text: texto
+
+        });
+
+    } else {
+
+        navigator.clipboard.writeText(texto);
+
+        alert(
+            "Fechamento copiado para a área de transferência."
+        );
+    }
+}
+
+
+/* =========================
+   BACKUP
+========================= */
+
+function backup() {
+
+    const texto =
+        JSON.stringify(dados, null, 2);
+
+
+    const blob =
+        new Blob(
+            [texto],
+            { type: "application/json" }
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const a =
+        document.createElement("a");
+
+
+    a.href = url;
+
+    a.download =
+        `backup-meu-caixa-${dados.dataAtual}.json`;
+
+
+    a.click();
+
+
+    URL.revokeObjectURL(url);
+}
+
+
+/* =========================
+   INICIALIZAÇÃO
+========================= */
+
+inicio();
+
+</script>
+
+</body>
+</html>
