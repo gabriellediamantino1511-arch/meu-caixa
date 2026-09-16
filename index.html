@@ -3,183 +3,480 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111827">
 <title>Meu Caixa</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f4f4f4;
-    color: #222;
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f3f4f6;
+    color:#111827;
+    padding-bottom:80px;
 }
 
-.app {
-    max-width: 650px;
-    margin: auto;
-    min-height: 100vh;
-    background: white;
+button,input,select{
+    font:inherit;
 }
 
-header {
-    background: #222;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+button{
+    cursor:pointer;
+    border:none;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 25px;
+.app{
+    max-width:1100px;
+    margin:auto;
 }
 
-header p {
-    margin: 7px 0 0;
-    font-size: 14px;
+header{
+    background:#111827;
+    color:white;
+    padding:20px;
+    position:sticky;
+    top:0;
+    z-index:20;
 }
 
-main {
-    padding: 18px;
+.header-content{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
 }
 
-.card {
-    background: #f5f5f5;
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 12px;
+.logo{
+    font-size:24px;
+    font-weight:bold;
 }
 
-.resumo {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+.data-header{
+    font-size:13px;
+    opacity:.8;
 }
 
-.valor {
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 6px;
+main{
+    padding:20px;
 }
 
-.menu {
-    display: grid;
-    gap: 10px;
-    margin-top: 18px;
+h1{
+    font-size:25px;
+    margin-bottom:5px;
 }
 
-button {
-    width: 100%;
-    border: 0;
-    padding: 13px;
-    border-radius: 9px;
-    background: #222;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
+h2{
+    font-size:21px;
+    margin-bottom:15px;
 }
 
-button.secundario {
-    background: #ddd;
-    color: #222;
+h3{
+    font-size:17px;
+    margin-bottom:10px;
 }
 
-button.perigo {
-    background: #b00020;
+.subtitle{
+    color:#6b7280;
+    margin-bottom:20px;
 }
 
-button.sucessoBtn {
-    background: #176b43;
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-bottom:20px;
 }
 
-input,
-select {
-    width: 100%;
-    padding: 12px;
-    margin-top: 6px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
+.card{
+    background:white;
+    border-radius:16px;
+    padding:18px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
 }
 
-input:read-only {
-    background: #eee;
+.card-label{
+    font-size:13px;
+    color:#6b7280;
+    margin-bottom:8px;
 }
 
-label {
-    font-weight: bold;
-    display: block;
-    margin-top: 12px;
+.card-value{
+    font-size:24px;
+    font-weight:bold;
 }
 
-h2 {
-    margin-top: 0;
+.card small{
+    color:#6b7280;
 }
 
-.item {
-    background: #f5f5f5;
-    border-radius: 10px;
-    padding: 12px;
-    margin-bottom: 10px;
+.section{
+    background:white;
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:18px;
+    box-shadow:0 2px 8px rgba(0,0,0,.05);
 }
 
-.item strong {
-    font-size: 17px;
+.actions{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
 }
 
-.item-acoes {
-    display: flex;
-    gap: 6px;
-    margin-top: 10px;
+.btn{
+    padding:13px 16px;
+    border-radius:10px;
+    font-weight:bold;
+    background:#e5e7eb;
+    color:#111827;
 }
 
-.item-acoes button {
-    font-size: 12px;
-    padding: 8px;
+.btn-primary{
+    background:#111827;
+    color:white;
 }
 
-.total-box {
-    background: #222;
-    color: white;
-    padding: 16px;
-    border-radius: 10px;
-    margin: 15px 0;
-    font-size: 20px;
-    font-weight: bold;
+.btn-success{
+    background:#16a34a;
+    color:white;
 }
 
-.separador {
-    margin: 20px 0;
-    border: 0;
-    border-top: 1px solid #ddd;
+.btn-danger{
+    background:#dc2626;
+    color:white;
 }
 
-.vazio {
-    text-align: center;
-    color: #777;
-    padding: 25px 10px;
+.btn-warning{
+    background:#f59e0b;
+    color:white;
 }
 
-.negativo {
-    color: #b00020;
+.btn-blue{
+    background:#2563eb;
+    color:white;
 }
 
-.positivo {
-    color: #176b43;
+.btn-small{
+    padding:7px 10px;
+    border-radius:8px;
+    font-size:13px;
 }
 
-@media (max-width: 450px) {
-    main {
-        padding: 12px;
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+}
+
+.form-group{
+    margin-bottom:14px;
+}
+
+.form-group.full{
+    grid-column:1/-1;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    font-size:14px;
+    margin-bottom:6px;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:9px;
+    background:white;
+    outline:none;
+}
+
+input:focus,select:focus{
+    border-color:#111827;
+}
+
+.total-box{
+    background:#f3f4f6;
+    border-radius:12px;
+    padding:15px;
+    margin:15px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:18px;
+}
+
+.total-box strong{
+    font-size:24px;
+}
+
+.product-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.product-row{
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    padding:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+}
+
+.product-info{
+    flex:1;
+}
+
+.product-name{
+    font-weight:bold;
+    margin-bottom:4px;
+}
+
+.product-detail{
+    font-size:13px;
+    color:#6b7280;
+}
+
+.row-actions{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+}
+
+.table-wrapper{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:12px 8px;
+    border-bottom:1px solid #e5e7eb;
+    text-align:left;
+    font-size:14px;
+}
+
+th{
+    color:#6b7280;
+    font-size:12px;
+    text-transform:uppercase;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 8px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.badge-green{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.badge-red{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.badge-yellow{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.badge-blue{
+    background:#dbeafe;
+    color:#1e40af;
+}
+
+.empty{
+    text-align:center;
+    padding:30px 15px;
+    color:#6b7280;
+}
+
+.back{
+    margin-bottom:15px;
+}
+
+.sale-cart{
+    margin-top:15px;
+}
+
+.cart-item{
+    display:grid;
+    grid-template-columns:1fr 90px 100px 40px;
+    align-items:center;
+    gap:10px;
+    padding:12px;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.cart-item input{
+    padding:8px;
+}
+
+.remove-btn{
+    background:#fee2e2;
+    color:#991b1b;
+    border-radius:7px;
+    width:34px;
+    height:34px;
+}
+
+.summary-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.summary-item{
+    background:#f9fafb;
+    padding:15px;
+    border-radius:10px;
+}
+
+.summary-item span{
+    display:block;
+    color:#6b7280;
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.summary-item strong{
+    font-size:20px;
+}
+
+.difference-positive{
+    color:#166534;
+}
+
+.difference-negative{
+    color:#991b1b;
+}
+
+.nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    background:white;
+    border-top:1px solid #e5e7eb;
+    z-index:30;
+    padding:8px;
+}
+
+.nav-inner{
+    max-width:700px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:5px;
+}
+
+.nav button{
+    background:white;
+    padding:8px 4px;
+    font-size:11px;
+    color:#6b7280;
+    border-radius:8px;
+}
+
+.nav button.active{
+    background:#111827;
+    color:white;
+}
+
+.notice{
+    padding:12px 14px;
+    border-radius:10px;
+    margin-bottom:15px;
+    background:#eff6ff;
+    color:#1e40af;
+}
+
+.search{
+    margin-bottom:15px;
+}
+
+hr{
+    border:none;
+    border-top:1px solid #e5e7eb;
+    margin:20px 0;
+}
+
+@media(max-width:750px){
+    .grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .resumo {
-        grid-template-columns: 1fr 1fr;
+    .actions{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+    main{
+        padding:14px;
+    }
+
+    .section{
+        padding:15px;
+    }
+
+    .summary-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .cart-item{
+        grid-template-columns:1fr 70px 80px 35px;
+        font-size:13px;
+    }
+}
+
+@media(max-width:450px){
+    .grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .card{
+        padding:13px;
+    }
+
+    .card-value{
+        font-size:19px;
+    }
+
+    .actions{
+        grid-template-columns:1fr;
+    }
+
+    .header-content{
+        align-items:flex-start;
+    }
+
+    .logo{
+        font-size:20px;
     }
 }
 </style>
@@ -187,3854 +484,2499 @@ h2 {
 
 <body>
 
-<div class="app">
-
 <header>
-    <h1>MEU CAIXA</h1>
-    <p id="dataAtual"></p>
+    <div class="header-content">
+        <div>
+            <div class="logo">MEU CAIXA</div>
+            <div class="data-header" id="dataHeader"></div>
+        </div>
+        <button class="btn btn-success btn-small" onclick="novaVenda()">+ Venda</button>
+    </div>
 </header>
 
 <main id="app"></main>
 
-</div>
+<nav class="nav">
+    <div class="nav-inner">
+        <button onclick="inicio()" id="navInicio">⌂<br>Início</button>
+        <button onclick="novaVenda()" id="navVenda">＋<br>Venda</button>
+        <button onclick="estoque()" id="navEstoque">▣<br>Estoque</button>
+        <button onclick="fechamento()" id="navFechamento">R$<br>Caixa</button>
+        <button onclick="menuMais()" id="navMais">☰<br>Mais</button>
+    </div>
+</nav>
 
 <script>
+/* =========================================================
+   MEU CAIXA
+   Versão local
+   ========================================================= */
 
 const CHAVE = "meuCaixaDados";
 
-function hoje() {
+let dados = carregarDados();
 
+let telaAtual = "inicio";
+
+let vendaEmEdicao = null;
+
+let carrinho = [];
+
+
+/* =========================================================
+   UTILITÁRIOS
+   ========================================================= */
+
+function hoje(){
     const d = new Date();
+    const ano = d.getFullYear();
+    const mes = String(d.getMonth()+1).padStart(2,"0");
+    const dia = String(d.getDate()).padStart(2,"0");
+    return `${ano}-${mes}-${dia}`;
+}
 
-    return (
-        d.getFullYear() +
-        "-" +
-        String(d.getMonth() + 1).padStart(2, "0") +
-        "-" +
-        String(d.getDate()).padStart(2, "0")
+function formatarData(data){
+    if(!data) return "";
+    const partes = data.split("-");
+    if(partes.length !== 3) return data;
+    return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
+
+function dinheiro(valor){
+    return Number(valor || 0).toLocaleString("pt-BR",{
+        style:"currency",
+        currency:"BRL"
+    });
+}
+
+function numero(valor){
+    return Number(valor || 0);
+}
+
+function gerarId(prefixo="id"){
+    return prefixo + Date.now() + Math.random().toString(16).slice(2);
+}
+
+function salvar(){
+    localStorage.setItem(CHAVE,JSON.stringify(dados));
+}
+
+function dataAtualTexto(){
+    const d = new Date();
+    return d.toLocaleDateString("pt-BR",{
+        weekday:"long",
+        day:"2-digit",
+        month:"long",
+        year:"numeric"
+    });
+}
+
+
+/* =========================================================
+   CARREGAMENTO E COMPATIBILIDADE
+   ========================================================= */
+
+function carregarDados(){
+
+    let salvo = localStorage.getItem(CHAVE);
+
+    if(!salvo){
+        return estruturaNova();
+    }
+
+    try{
+
+        let d = JSON.parse(salvo);
+
+        d.produtos = Array.isArray(d.produtos) ? d.produtos : [];
+        d.vendas = Array.isArray(d.vendas) ? d.vendas : [];
+        d.fiados = Array.isArray(d.fiados) ? d.fiados : [];
+        d.saidas = Array.isArray(d.saidas) ? d.saidas : [];
+
+        if(d.caixaInicial === undefined) d.caixaInicial = 0;
+        if(!d.dataAtual) d.dataAtual = hoje();
+
+        d.vendas.forEach(v=>{
+            if(!v.id) v.id = gerarId("venda_");
+            if(!v.data) v.data = d.dataAtual || hoje();
+            if(!Array.isArray(v.itens)){
+                v.itens = [];
+            }
+            if(v.total === undefined){
+                v.total = v.itens.reduce(
+                    (s,i)=>s + numero(i.quantidade)*numero(i.preco||i.valor||0),
+                    0
+                );
+            }
+        });
+
+        d.produtos.forEach(p=>{
+            if(!p.id) p.id = gerarId("prod_");
+            if(p.estoque === undefined){
+                p.estoque = numero(p.quantidade);
+            }
+            p.estoque = numero(p.estoque);
+            p.preco = numero(p.preco||p.valor||0);
+        });
+
+        d.saidas.forEach(s=>{
+            if(!s.id) s.id = gerarId("saida_");
+            if(!s.data) s.data = d.dataAtual || hoje();
+        });
+
+        d.fiados.forEach(f=>{
+            if(!f.id) f.id = gerarId("fiado_");
+            if(!f.data) f.data = d.dataAtual || hoje();
+            if(f.status === undefined) f.status = "Pendente";
+        });
+
+        return d;
+
+    }catch(e){
+
+        console.error(e);
+        return estruturaNova();
+    }
+}
+
+function estruturaNova(){
+    return {
+        produtos:[],
+        vendas:[],
+        fiados:[],
+        saidas:[],
+        caixaInicial:0,
+        dataAtual:hoje()
+    };
+}
+
+
+/* =========================================================
+   CÁLCULOS
+   ========================================================= */
+
+function vendasDoDia(data=hoje()){
+    return dados.vendas.filter(v=>v.data === data);
+}
+
+function saidasDoDia(data=hoje()){
+    return dados.saidas.filter(s=>s.data === data);
+}
+
+function totalVendasDia(data=hoje()){
+    return vendasDoDia(data).reduce(
+        (s,v)=>s+numero(v.total),0
+    );
+}
+
+function totalPorPagamento(data,pagamento){
+    return vendasDoDia(data)
+        .filter(v=>v.pagamento === pagamento)
+        .reduce((s,v)=>s+numero(v.total),0);
+}
+
+function totalFiadoDia(data=hoje()){
+    return vendasDoDia(data)
+        .filter(v=>v.pagamento === "Fiado")
+        .reduce((s,v)=>s+numero(v.total),0);
+}
+
+function pagamentosFiadosDia(data=hoje()){
+    return dados.fiados
+        .filter(f=>
+            f.status === "Pago" &&
+            f.dataPagamento === data
+        )
+        .reduce((s,f)=>s+numero(f.valor),0);
+}
+
+function pagamentosFiadosPorMetodo(data,pagamento){
+    return dados.fiados
+        .filter(f=>
+            f.status === "Pago" &&
+            f.dataPagamento === data &&
+            f.pagamento === pagamento
+        )
+        .reduce((s,f)=>s+numero(f.valor),0);
+}
+
+function totalSaidasDia(data=hoje()){
+    return saidasDoDia(data)
+        .reduce((s,x)=>s+numero(x.valor),0);
+}
+
+function saidasDinheiroDia(data=hoje()){
+    return saidasDoDia(data)
+        .filter(x=>x.pagamento==="Dinheiro")
+        .reduce((s,x)=>s+numero(x.valor),0);
+}
+
+function dinheiroEsperado(data=hoje()){
+    return numero(dados.caixaInicial)
+        + totalPorPagamento(data,"Dinheiro")
+        + pagamentosFiadosPorMetodo(data,"Dinheiro")
+        - saidasDinheiroDia(data);
+}
+
+function pendentes(){
+    return dados.fiados.filter(f=>f.status !== "Pago");
+}
+
+
+/* =========================================================
+   MENU / NAVEGAÇÃO
+   ========================================================= */
+
+function marcarNav(id){
+    document.querySelectorAll(".nav button")
+        .forEach(b=>b.classList.remove("active"));
+
+    const el = document.getElementById(id);
+
+    if(el) el.classList.add("active");
+}
+
+function menuMais(){
+
+    telaAtual = "mais";
+
+    marcarNav("navMais");
+
+    document.getElementById("app").innerHTML = `
+        <h1>Mais opções</h1>
+        <p class="subtitle">Gerencie produtos, fiados, histórico e seus dados.</p>
+
+        <div class="actions">
+
+            <button class="btn btn-primary" onclick="produtos()">
+                📦 Produtos
+            </button>
+
+            <button class="btn btn-primary" onclick="fiados()">
+                📝 Fiados
+            </button>
+
+            <button class="btn btn-primary" onclick="saidas()">
+                💸 Saídas
+            </button>
+
+            <button class="btn btn-primary" onclick="historico()">
+                📊 Histórico
+            </button>
+
+            <button class="btn btn-blue" onclick="backup()">
+                💾 Fazer backup
+            </button>
+
+            <button class="btn btn-blue" onclick="restaurarBackup()">
+                ♻️ Restaurar backup
+            </button>
+
+            <button class="btn btn-warning" onclick="novoDia()">
+                🌅 Novo dia
+            </button>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   INÍCIO
+   ========================================================= */
+
+function inicio(){
+
+    telaAtual = "inicio";
+
+    marcarNav("navInicio");
+
+    const data = dados.dataAtual || hoje();
+
+    document.getElementById("dataHeader").textContent =
+        dataAtualTexto();
+
+    const vendas = totalVendasDia(data);
+    const fiado = totalFiadoDia(data);
+    const saidasTotal = totalSaidasDia(data);
+    const dinheiroHoje = totalPorPagamento(data,"Dinheiro");
+    const pixHoje = totalPorPagamento(data,"Pix");
+    const debitoHoje = totalPorPagamento(data,"Débito");
+    const creditoHoje = totalPorPagamento(data,"Crédito");
+
+    const pendentesValor = pendentes()
+        .reduce((s,f)=>s+numero(f.valor),0);
+
+    document.getElementById("app").innerHTML = `
+
+        <h1>Olá 👋</h1>
+
+        <p class="subtitle">
+            ${formatarData(data)} • Controle do seu caixa
+        </p>
+
+        <div class="grid">
+
+            <div class="card">
+                <div class="card-label">Vendas hoje</div>
+                <div class="card-value">${dinheiro(vendas)}</div>
+                <small>${vendasDoDia(data).length} venda(s)</small>
+            </div>
+
+            <div class="card">
+                <div class="card-label">Dinheiro</div>
+                <div class="card-value">${dinheiro(dinheiroHoje)}</div>
+                <small>vendas em dinheiro</small>
+            </div>
+
+            <div class="card">
+                <div class="card-label">Fiados</div>
+                <div class="card-value">${dinheiro(pendenteValorFormatado())}</div>
+                <small>em aberto</small>
+            </div>
+
+            <div class="card">
+                <div class="card-label">Saídas</div>
+                <div class="card-value">${dinheiro(saidasTotal)}</div>
+                <small>hoje</small>
+            </div>
+
+        </div>
+
+        <div class="section">
+
+            <h2>Ações rápidas</h2>
+
+            <div class="actions">
+
+                <button class="btn btn-primary" onclick="novaVenda()">
+                    + Nova venda
+                </button>
+
+                <button class="btn btn-blue" onclick="estoque()">
+                    📦 Estoque
+                </button>
+
+                <button class="btn btn-warning" onclick="novoFiado()">
+                    📝 Novo fiado
+                </button>
+
+                <button class="btn btn-danger" onclick="novaSaida()">
+                    💸 Registrar saída
+                </button>
+
+                <button class="btn btn-success" onclick="fechamento()">
+                    💰 Fechamento
+                </button>
+
+                <button class="btn" onclick="historico()">
+                    📊 Histórico
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="section">
+
+            <h2>Resumo do dia</h2>
+
+            <div class="summary-grid">
+
+                <div class="summary-item">
+                    <span>Dinheiro</span>
+                    <strong>${dinheiro(dinheiroHoje)}</strong>
+                </div>
+
+                <div class="summary-item">
+                    <span>Pix</span>
+                    <strong>${dinheiro(pixHoje)}</strong>
+                </div>
+
+                <div class="summary-item">
+                    <span>Débito</span>
+                    <strong>${dinheiro(debitoHoje)}</strong>
+                </div>
+
+                <div class="summary-item">
+                    <span>Crédito</span>
+                    <strong>${dinheiro(creditoHoje)}</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="section">
+
+            <h2>Caixa físico esperado</h2>
+
+            <div class="total-box">
+                <span>Valor esperado</span>
+                <strong>${dinheiro(dinheiroEsperado(data))}</strong>
+            </div>
+
+            <button class="btn btn-primary" onclick="fechamento()">
+                Abrir fechamento
+            </button>
+
+        </div>
+    `;
+}
+
+function pendenteValorFormatado(){
+    return pendentes()
+        .reduce((s,f)=>s+numero(f.valor),0);
+}
+
+
+/* =========================================================
+   PRODUTOS
+   ========================================================= */
+
+function produtos(){
+
+    telaAtual = "produtos";
+
+    marcarNav("navMais");
+
+    renderProdutos("");
+}
+
+function renderProdutos(filtro){
+
+    const lista = dados.produtos.filter(p=>
+        p.nome.toLowerCase().includes(filtro.toLowerCase())
+    );
+
+    document.getElementById("app").innerHTML = `
+
+        <button class="btn back" onclick="menuMais()">← Voltar</button>
+
+        <h1>Produtos</h1>
+
+        <p class="subtitle">
+            Cadastre produtos, preços e estoque atual.
+        </p>
+
+        <div class="section">
+
+            <button class="btn btn-primary" onclick="novoProduto()">
+                + Cadastrar produto
+            </button>
+
+            <hr>
+
+            <input
+                class="search"
+                placeholder="🔎 Procurar produto..."
+                value="${filtro}"
+                oninput="renderProdutos(this.value)"
+            >
+
+            <div class="product-list">
+
+                ${
+                    lista.length
+                    ? lista.map(p=>`
+
+                        <div class="product-row">
+
+                            <div class="product-info">
+
+                                <div class="product-name">
+                                    ${esc(p.nome)}
+                                </div>
+
+                                <div class="product-detail">
+                                    Preço: ${dinheiro(p.preco)}
+                                    • Estoque: ${numero(p.estoque)}
+                                </div>
+
+                            </div>
+
+                            <div class="row-actions">
+
+                                <button
+                                    class="btn btn-small btn-blue"
+                                    onclick="editarProduto('${p.id}')">
+                                    Editar
+                                </button>
+
+                                <button
+                                    class="btn btn-small btn-danger"
+                                    onclick="excluirProduto('${p.id}')">
+                                    Excluir
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    `).join("")
+                    :
+                    `<div class="empty">Nenhum produto encontrado.</div>`
+                }
+
+            </div>
+
+        </div>
+    `;
+}
+
+function novoProduto(){
+
+    document.getElementById("app").innerHTML = `
+
+        <button class="btn back" onclick="produtos()">← Voltar</button>
+
+        <h1>Novo produto</h1>
+
+        <div class="section">
+
+            <div class="form-group">
+                <label>Nome do produto</label>
+                <input id="produtoNome" placeholder="Ex.: Brigadeiro">
+            </div>
+
+            <div class="form-group">
+                <label>Preço de venda</label>
+                <input id="produtoPreco" type="number" step="0.01" min="0" placeholder="0,00">
+            </div>
+
+            <div class="form-group">
+                <label>Estoque atual</label>
+                <input id="produtoEstoque" type="number" step="1" min="0" placeholder="0">
+            </div>
+
+            <button class="btn btn-primary" onclick="salvarProduto()">
+                Salvar produto
+            </button>
+
+        </div>
+    `;
+}
+
+function salvarProduto(id=null){
+
+    const nome = document.getElementById("produtoNome").value.trim();
+    const preco = numero(document.getElementById("produtoPreco").value);
+    const estoque = numero(document.getElementById("produtoEstoque").value);
+
+    if(!nome){
+        alert("Digite o nome do produto.");
+        return;
+    }
+
+    if(id){
+
+        const p = dados.produtos.find(x=>x.id===id);
+
+        if(p){
+            p.nome = nome;
+            p.preco = preco;
+            p.estoque = estoque;
+        }
+
+    }else{
+
+        dados.produtos.push({
+            id:gerarId("prod_"),
+            nome,
+            preco,
+            estoque
+        });
+
+    }
+
+    salvar();
+
+    alert("Produto salvo!");
+
+    produtos();
+}
+
+function editarProduto(id){
+
+    const p = dados.produtos.find(x=>x.id===id);
+
+    if(!p) return;
+
+    document.getElementById("app").innerHTML = `
+
+        <button class="btn back" onclick="produtos()">← Voltar</button>
+
+        <h1>Editar produto</h1>
+
+        <div class="section">
+
+            <div class="form-group">
+                <label>Nome do produto</label>
+                <input id="produtoNome" value="${esc(p.nome)}">
+            </div>
+
+            <div class="form-group">
+                <label>Preço de venda</label>
+                <input id="produtoPreco" type="number" step="0.01" value="${p.preco}">
+            </div>
+
+            <div class="form-group">
+                <label>Estoque atual</label>
+                <input id="produtoEstoque" type="number" step="1" value="${p.estoque}">
+            </div>
+
+            <button class="btn btn-primary"
+                onclick="salvarProduto('${p.id}')">
+                Salvar alterações
+            </button>
+
+        </div>
+    `;
+}
+
+function excluirProduto(id){
+
+    const p = dados.produtos.find(x=>x.id===id);
+
+    if(!p) return;
+
+    if(!confirm(`Excluir o produto "${p.nome}"?`)) return;
+
+    dados.produtos = dados.produtos.filter(x=>x.id!==id);
+
+    salvar();
+
+    produtos();
+}
+
+
+/* =========================================================
+   ESTOQUE
+   ========================================================= */
+
+function estoque(){
+
+    telaAtual = "estoque";
+
+    marcarNav("navEstoque");
+
+    document.getElementById("app").innerHTML = `
+
+        <h1>Estoque</h1>
+
+        <p class="subtitle">
+            Consulte e ajuste o estoque atual.
+        </p>
+
+        <div class="section">
+
+            ${
+                dados.produtos.length
+                ?
+                `<div class="product-list">
+
+                    ${dados.produtos.map(p=>`
+
+                        <div class="product-row">
+
+                            <div class="product-info">
+                                <div class="product-name">${esc(p.nome)}</div>
+                                <div class="product-detail">
+                                    ${dinheiro(p.preco)}
+                                </div>
+                            </div>
+
+                            <strong>
+                                ${numero(p.estoque)} un.
+                            </strong>
+
+                            <div class="row-actions">
+
+                                <button
+                                    class="btn btn-small btn-success"
+                                    onclick="entradaEstoque('${p.id}')">
+                                    + Entrada
+                                </button>
+
+                                <button
+                                    class="btn btn-small btn-danger"
+                                    onclick="perdaEstoque('${p.id}')">
+                                    - Perda
+                                </button>
+
+                                <button
+                                    class="btn btn-small"
+                                    onclick="ajustarEstoque('${p.id}')">
+                                    Ajustar
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    `).join("")}
+
+                </div>`
+                :
+                `<div class="empty">
+                    Nenhum produto cadastrado.
+                </div>`
+            }
+
+        </div>
+
+        <div class="section">
+
+            <h3>Preparar próximo dia</h3>
+
+            <p class="subtitle">
+                O estoque atual será mantido como base para o próximo dia.
+            </p>
+
+            <button class="btn btn-primary" onclick="prepararProximoDia()">
+                Preparar próximo dia
+            </button>
+
+        </div>
+    `;
+}
+
+function entradaEstoque(id){
+
+    const p = dados.produtos.find(x=>x.id===id);
+
+    if(!p) return;
+
+    const qtd = Number(prompt(`Quantas unidades de "${p.nome}" entraram?`));
+
+    if(!Number.isFinite(qtd) || qtd<=0) return;
+
+    p.estoque += qtd;
+
+    salvar();
+
+    estoque();
+}
+
+function perdaEstoque(id){
+
+    const p = dados.produtos.find(x=>x.id===id);
+
+    if(!p) return;
+
+    const qtd = Number(prompt(`Quantas unidades de "${p.nome}" foram perdidas?`));
+
+    if(!Number.isFinite(qtd) || qtd<=0) return;
+
+    if(qtd > p.estoque){
+        alert("A quantidade de perda não pode ser maior que o estoque.");
+        return;
+    }
+
+    p.estoque -= qtd;
+
+    salvar();
+
+    estoque();
+}
+
+function ajustarEstoque(id){
+
+    const p = dados.produtos.find(x=>x.id===id);
+
+    if(!p) return;
+
+    const qtd = Number(prompt(
+        `Qual é o estoque atual de "${p.nome}"?`,
+        p.estoque
+    ));
+
+    if(!Number.isFinite(qtd) || qtd<0) return;
+
+    p.estoque = qtd;
+
+    salvar();
+
+    estoque();
+}
+
+function prepararProximoDia(){
+
+    if(!confirm("Iniciar um novo dia mantendo os produtos e o estoque atual?")){
+        return;
+    }
+
+    dados.dataAtual = hoje();
+    dados.caixaInicial = 0;
+
+    salvar();
+
+    alert("Novo dia preparado.");
+
+    inicio();
+}
+
+
+/* =========================================================
+   NOVA VENDA
+   ========================================================= */
+
+function novaVenda(){
+
+    telaAtual = "venda";
+
+    marcarNav("navVenda");
+
+    carrinho = [];
+    vendaEmEdicao = null;
+
+    renderVenda();
+}
+
+function renderVenda(){
+
+    document.getElementById("app").innerHTML = `
+
+        <button class="btn back" onclick="inicio()">← Voltar</button>
+
+        <h1>${vendaEmEdicao ? "Editar venda" : "Nova venda"}</h1>
+
+        <p class="subtitle">
+            Adicione quantos produtos quiser.
+        </p>
+
+        <div class="section">
+
+            <div class="form-group">
+
+                <label>Produto</label>
+
+                <select id="produtoVenda">
+
+                    <option value="">Selecione um produto</option>
+
+                    ${dados.produtos.map(p=>`
+
+                        <option value="${p.id}">
+                            ${esc(p.nome)}
+                            • ${dinheiro(p.preco)}
+                            • estoque: ${p.estoque}
+                        </option>
+
+                    `).join("")}
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Quantidade</label>
+
+                <input
+                    id="quantidadeVenda"
+                    type="number"
+                    min="1"
+                    step="1"
+                    value="1"
+                >
+
+            </div>
+
+            <button class="btn btn-blue" onclick="adicionarCarrinho()">
+                + Adicionar produto
+            </button>
+
+            <div class="sale-cart">
+
+                <h3>Itens da venda</h3>
+
+                ${
+                    carrinho.length
+                    ?
+                    carrinho.map((item,index)=>`
+
+                        <div class="cart-item">
+
+                            <div>
+                                <strong>${esc(item.nome)}</strong><br>
+                                <small>${dinheiro(item.preco)} cada</small>
+                            </div>
+
+                            <input
+                                type="number"
+                                min="1"
+                                value="${item.quantidade}"
+                                onchange="alterarQuantidadeCarrinho(${index},this.value)"
+                            >
+
+                            <strong>
+                                ${dinheiro(item.preco*item.quantidade)}
+                            </strong>
+
+                            <button
+                                class="remove-btn"
+                                onclick="removerCarrinho(${index})">
+                                ×
+                            </button>
+
+                        </div>
+
+                    `).join("")
+                    :
+                    `<div class="empty">
+                        Nenhum produto adicionado.
+                    </div>`
+                }
+
+            </div>
+
+            <div class="total-box">
+                <span>Total</span>
+                <strong>${dinheiro(totalCarrinho())}</strong>
+            </div>
+
+            <div class="form-group">
+
+                <label>Forma de pagamento</label>
+
+                <select id="pagamentoVenda">
+
+                    <option value="Dinheiro">Dinheiro</option>
+                    <option value="Pix">Pix</option>
+                    <option value="Débito">Débito</option>
+                    <option value="Crédito">Crédito</option>
+                    <option value="Fiado">Fiado</option>
+
+                </select>
+
+            </div>
+
+            <div id="clienteFiadoBox" style="display:none">
+
+                <div class="form-group">
+
+                    <label>Nome da pessoa</label>
+
+                    <input id="clienteFiado"
+                        placeholder="Nome">
+
+                </div>
+
+            </div>
+
+            <button class="btn btn-success" onclick="registrarVenda()">
+                ${vendaEmEdicao ? "Salvar alteração" : "Registrar venda"}
+            </button>
+
+        </div>
+    `;
+
+    const pagamento = document.getElementById("pagamentoVenda");
+
+    pagamento.addEventListener("change",()=>{
+        document.getElementById("clienteFiadoBox").style.display =
+            pagamento.value === "Fiado" ? "block" : "none";
+    });
+}
+
+function adicionarCarrinho(){
+
+    const id = document.getElementById("produtoVenda").value;
+    const qtd = Number(document.getElementById("quantidadeVenda").value);
+
+    if(!id){
+        alert("Selecione um produto.");
+        return;
+    }
+
+    if(!Number.isInteger(qtd) || qtd<=0){
+        alert("Digite uma quantidade válida.");
+        return;
+    }
+
+    const p = dados.produtos.find(x=>x.id===id);
+
+    if(!p) return;
+
+    const existente = carrinho.find(x=>x.produtoId===id);
+
+    const quantidadeAtual =
+        existente ? existente.quantidade : 0;
+
+    if(quantidadeAtual + qtd > p.estoque){
+        alert(
+            `Estoque insuficiente de ${p.nome}.\n` +
+            `Disponível: ${p.estoque}`
+        );
+        return;
+    }
+
+    if(existente){
+        existente.quantidade += qtd;
+    }else{
+        carrinho.push({
+            produtoId:p.id,
+            nome:p.nome,
+            preco:p.preco,
+            quantidade:qtd
+        });
+    }
+
+    renderVenda();
+}
+
+function alterarQuantidadeCarrinho(index,valor){
+
+    const qtd = Number(valor);
+
+    if(!Number.isInteger(qtd) || qtd<=0){
+        renderVenda();
+        return;
+    }
+
+    const item = carrinho[index];
+
+    const p = dados.produtos.find(x=>x.id===item.produtoId);
+
+    if(!p) return;
+
+    if(qtd > p.estoque){
+        alert(`Estoque disponível: ${p.estoque}`);
+        renderVenda();
+        return;
+    }
+
+    item.quantidade = qtd;
+
+    renderVenda();
+}
+
+function removerCarrinho(index){
+
+    carrinho.splice(index,1);
+
+    renderVenda();
+}
+
+function totalCarrinho(){
+
+    return carrinho.reduce(
+        (s,i)=>s + numero(i.preco)*numero(i.quantidade),
+        0
     );
 }
 
 
-const padrao = {
+/* =========================================================
+   REGISTRAR / EDITAR VENDA
+   ========================================================= */
 
-    produtos: [],
-    vendas: [],
-    saidas: [],
-    fiados: [],
-    dias: [],
-    caixaInicial: 0,
-    dataAtual: hoje()
+function registrarVenda(){
 
-};
+    if(carrinho.length===0){
+        alert("Adicione pelo menos um produto.");
+        return;
+    }
+
+    const pagamento =
+        document.getElementById("pagamentoVenda").value;
+
+    let cliente = "";
+
+    if(pagamento==="Fiado"){
+
+        cliente =
+            document.getElementById("clienteFiado").value.trim();
+
+        if(!cliente){
+            alert("Informe o nome da pessoa do fiado.");
+            return;
+        }
+    }
+
+    /*
+       Se for edição, primeiro devolvemos os produtos
+       da venda antiga ao estoque.
+    */
+
+    if(vendaEmEdicao){
+
+        const antiga = dados.vendas.find(
+            v=>v.id===vendaEmEdicao
+        );
+
+        if(!antiga){
+            alert("Venda não encontrada.");
+            return;
+        }
+
+        antiga.itens.forEach(item=>{
+
+            const p = dados.produtos.find(
+                x=>x.id===item.produtoId
+            );
+
+            if(p){
+                p.estoque += numero(item.quantidade);
+            }
+        });
+
+        /*
+          Se a venda antiga era um fiado ainda pendente,
+          removemos o registro antigo.
+        */
+
+        if(antiga.pagamento==="Fiado"){
+
+            dados.fiados = dados.fiados.filter(
+                f=>f.vendaId!==antiga.id
+            );
+        }
+
+        antiga.itens = carrinho.map(x=>({...x}));
+        antiga.total = totalCarrinho();
+        antiga.pagamento = pagamento;
+
+        if(pagamento==="Fiado"){
+
+            dados.fiados.push({
+                id:gerarId("fiado_"),
+                vendaId:antiga.id,
+                pessoa:cliente,
+                valor:antiga.total,
+                data:antiga.data,
+                status:"Pendente",
+                pagamento:"",
+                dataPagamento:""
+            });
+        }
+
+        carrinho.forEach(item=>{
+
+            const p = dados.produtos.find(
+                x=>x.id===item.produtoId
+            );
+
+            if(p){
+                p.estoque -= numero(item.quantidade);
+            }
+        });
+
+        salvar();
+
+        alert("Venda alterada com sucesso.");
+
+        vendaEmEdicao = null;
+
+        inicio();
+
+        return;
+    }
 
 
-let dados =
-    JSON.parse(
-        localStorage.getItem(CHAVE) || "null"
-    ) || padrao;
+    /*
+      NOVA VENDA
+    */
+
+    const venda = {
+        id:gerarId("venda_"),
+        data:dados.dataAtual || hoje(),
+        itens:carrinho.map(x=>({...x})),
+        total:totalCarrinho(),
+        pagamento:pagamento
+    };
+
+    /*
+      Confirma estoque antes de salvar.
+    */
+
+    for(const item of venda.itens){
+
+        const p = dados.produtos.find(
+            x=>x.id===item.produtoId
+        );
+
+        if(!p){
+            alert(`Produto não encontrado: ${item.nome}`);
+            return;
+        }
+
+        if(numero(item.quantidade)>numero(p.estoque)){
+            alert(
+                `Estoque insuficiente para ${item.nome}.`
+            );
+            return;
+        }
+    }
+
+    /*
+      Baixa o estoque somente agora.
+    */
+
+    venda.itens.forEach(item=>{
+
+        const p = dados.produtos.find(
+            x=>x.id===item.produtoId
+        );
+
+        p.estoque -= numero(item.quantidade);
+    });
+
+    dados.vendas.push(venda);
+
+    if(pagamento==="Fiado"){
+
+        dados.fiados.push({
+            id:gerarId("fiado_"),
+            vendaId:venda.id,
+            pessoa:cliente,
+            valor:venda.total,
+            data:venda.data,
+            status:"Pendente",
+            pagamento:"",
+            dataPagamento:""
+        });
+    }
+
+    salvar();
+
+    alert("Venda registrada!");
+
+    carrinho = [];
+
+    inicio();
+}
+
+function editarVenda(id){
+
+    const venda = dados.vendas.find(v=>v.id===id);
+
+    if(!venda) return;
+
+    vendaEmEdicao = id;
+
+    carrinho = venda.itens.map(item=>({
+        produtoId:item.produtoId,
+        nome:item.nome,
+        preco:numero(item.preco),
+        quantidade:numero(item.quantidade)
+    }));
+
+    renderVenda();
+
+    setTimeout(()=>{
+
+        const pagamento =
+            document.getElementById("pagamentoVenda");
+
+        if(pagamento){
+
+            pagamento.value = venda.pagamento;
+
+            pagamento.dispatchEvent(
+                new Event("change")
+            );
+
+            if(venda.pagamento==="Fiado"){
+
+                const f = dados.fiados.find(
+                    x=>x.vendaId===venda.id
+                );
+
+                if(f){
+                    document.getElementById(
+                        "clienteFiado"
+                    ).value = f.pessoa || "";
+                }
+            }
+        }
+
+    },50);
+}
+
+function cancelarVenda(id){
+
+    const venda = dados.vendas.find(v=>v.id===id);
+
+    if(!venda) return;
+
+    if(!confirm("Cancelar esta venda?")) return;
+
+    /*
+      Devolve os produtos ao estoque.
+    */
+
+    venda.itens.forEach(item=>{
+
+        const p = dados.produtos.find(
+            x=>x.id===item.produtoId
+        );
+
+        if(p){
+            p.estoque += numero(item.quantidade);
+        }
+    });
+
+    dados.vendas = dados.vendas.filter(
+        v=>v.id!==id
+    );
+
+    dados.fiados = dados.fiados.filter(
+        f=>f.vendaId!==id
+    );
+
+    salvar();
+
+    alert("Venda cancelada.");
+
+    historico();
+}
 
 
-dados.produtos = dados.produtos || [];
-dados.vendas = dados.vendas || [];
-dados.saidas = dados.saidas || [];
-dados.fiados = dados.fiados || [];
-dados.dias = dados.dias || [];
+/* =========================================================
+   FIADOS
+   ========================================================= */
 
-dados.caixaInicial =
-    Number(dados.caixaInicial || 0);
+function fiados(){
+
+    telaAtual = "fiados";
+
+    marcarNav("navMais");
+
+    const lista = dados.fiados;
+
+    document.getElementById("app").innerHTML = `
+
+        <button class="btn back" onclick="menuMais()">← Voltar</button>
+
+        <h1>Fiados</h1>
+
+        <p class="subtitle">
+            Controle os valores pendentes e recebidos.
+        </p>
+
+        <div class="section">
+
+            <button class="btn btn-primary" onclick="novoFiado()">
+                + Novo fiado
+            </button>
+
+            <hr>
+
+            ${
+                lista.length
+                ?
+                `<div class="product-list">
+
+                    ${lista.slice().reverse().map(f=>`
+
+                        <div class="product-row">
+
+                            <div class="product-info">
+
+                                <div class="product-name">
+                                    ${esc(f.pessoa)}
+                                </div>
+
+                                <div class="product-detail">
+                                    ${formatarData(f.data)}
+                                    • ${dinheiro(f.valor)}
+                                </div>
+
+                            </div>
+
+                            <div>
+                                ${
+                                    f.status==="Pago"
+                                    ?
+                                    `<span class="badge badge-green">Pago</span>`
+                                    :
+                                    `<span class="badge badge-yellow">Pendente</span>`
+                                }
+                            </div>
+
+                            <div class="row-actions">
+
+                                ${
+                                    f.status!=="Pago"
+                                    ?
+                                    `<button
+                                        class="btn btn-small btn-success"
+                                        onclick="pagarFiado('${f.id}')">
+                                        Receber
+                                    </button>`
+                                    :
+                                    ""
+                                }
+
+                                <button
+                                    class="btn btn-small btn-blue"
+                                    onclick="editarFiado('${f.id}')">
+                                    Editar
+                                </button>
+
+                                <button
+                                    class="btn btn-small btn-danger"
+                                    onclick="excluirFiado('${f.id}')">
+                                    Excluir
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    `).join("")}
+
+                </div>`
+                :
+                `<div class="empty">
+                    Nenhum fiado cadastrado.
+                </div>`
+            }
+
+        </div>
+    `;
+}
+
+function novoFiado(){
+
+    document.getElementById("app").innerHTML = `
+
+        <button class="btn back" onclick="fiados()">← Voltar</button>
+
+        <h1>Novo fiado</h1>
+
+        <div class="section">
+
+            <div class="form-group">
+                <label>Nome da pessoa</label>
+                <input id="fiadoPessoa">
+            </div>
+
+            <div class="form-group">
+                <label>Valor</label>
+                <input id="fiadoValor" type="number" step="0.01" min="0">
+            </div>
+
+            <button class="btn btn-primary" onclick="salvarFiado()">
+                Salvar fiado
+            </button>
+
+        </div>
+    `;
+}
+
+function salvarFiado(id=null){
+
+    const pessoa =
+        document.getElementById("fiadoPessoa").value.trim();
+
+    const valor =
+        numero(document.getElementById("fiadoValor").value);
+
+    if(!pessoa || valor<=0){
+        alert("Informe nome e valor.");
+        return;
+    }
+
+    if(id){
+
+        const f = dados.fiados.find(x=>x.id===id);
+
+        if(f){
+            f.pessoa = pessoa;
+            f.valor = valor;
+        }
+
+    }else{
+
+        dados.fiados.push({
+            id:gerarId("fiado_"),
+            vendaId:null,
+            pessoa,
+            valor,
+            data:dados.dataAtual || hoje(),
+            status:"Pendente",
+            pagamento:"",
+            dataPagamento:""
+        });
+
+    }
+
+    salvar();
+
+    fiados();
+}
+
+function editarFiado(id){
+
+    const f = dados.fiados.find(x=>x.id===id);
+
+    if(!f) return;
+
+    document.getElementById("app").innerHTML = `
+
+        <button class="btn back" onclick="fiados()">← Voltar</button>
+
+        <h1>Editar fiado</h1>
+
+        <div class="section">
+
+            <div class="form-group">
+                <label>Nome da pessoa</label>
+                <input id="fiadoPessoa" value="${esc(f.pessoa)}">
+            </div>
+
+            <div class="form-group">
+                <label>Valor</label>
+                <input id="fiadoValor" type="number" step="0.01" value="${f.valor}">
+            </div>
+
+            <button class="btn btn-primary"
+                onclick="salvarFiado('${f.id}')">
+                Salvar alterações
+            </button>
+
+        </div>
+    `;
+}
+
+function pagarFiado(id){
+
+    const f = dados.fiados.find(x=>x.id===id);
+
+    if(!f) return;
+
+    const metodo = prompt(
+        "Como o fiado foi pago?\n\n" +
+        "Digite: Dinheiro, Pix, Débito ou Crédito"
+    );
+
+    if(!metodo) return;
+
+    const normalizado =
+        metodo.trim().toLowerCase();
+
+    const mapa = {
+        dinheiro:"Dinheiro",
+        pix:"Pix",
+        debito:"Débito",
+        débito:"Débito",
+        credito:"Crédito",
+        crédito:"Crédito"
+    };
+
+    if(!mapa[normalizado]){
+        alert("Forma de pagamento inválida.");
+        return;
+    }
+
+    f.status = "Pago";
+    f.pagamento = mapa[normalizado];
+    f.dataPagamento = dados.dataAtual || hoje();
+
+    salvar();
+
+    alert("Pagamento registrado!");
+
+    fiados();
+}
+
+function excluirFiado(id){
+
+    const f = dados.fiados.find(x=>x.id===id);
+
+    if(!f) return;
+
+    if(!confirm("Excluir este fiado?")) return;
+
+    dados.fiados = dados.fiados.filter(
+        x=>x.id!==id
+    );
+
+    salvar();
+
+    fiados();
+}
+
+
+/* =========================================================
+   SAÍDAS
+   ========================================================= */
+
+function saidas(){
+
+    document.getElementById("app").innerHTML = `
+
+        <button class="btn back" onclick="menuMais()">← Voltar</button>
+
+        <h1>Saídas</h1>
+
+        <p class="subtitle">
+            Registre valores retirados do caixa.
+        </p>
+
+        <div class="section">
+
+            <button class="btn btn-danger" onclick="novaSaida()">
+                + Registrar saída
+            </button>
+
+            <hr>
+
+            ${
+                dados.saidas.length
+                ?
+                `<div class="product-list">
+
+                    ${dados.saidas.slice().reverse().map(s=>`
+
+                        <div class="product-row">
+
+                            <div class="product-info">
+
+                                <div class="product-name">
+                                    ${esc(s.motivo)}
+                                </div>
+
+                                <div class="product-detail">
+                                    ${formatarData(s.data)}
+                                    • ${s.pagamento}
+                                </div>
+
+                            </div>
+
+                            <strong>
+                                ${dinheiro(s.valor)}
+                            </strong>
+
+                            <div class="row-actions">
+
+                                <button
+                                    class="btn btn-small btn-blue"
+                                    onclick="editarSaida('${s.id}')">
+                                    Editar
+                                </button>
+
+                                <button
+                                    class="btn btn-small btn-danger"
+                                    onclick="excluirSaida('${s.id}')">
+                                    Excluir
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    `).join("")}
+
+                </div>`
+                :
+                `<div class="empty">
+                    Nenhuma saída registrada.
+                </div>`
+            }
+
+        </div>
+    `;
+}
+
+function novaSaida(){
+
+    document.getElementById("app").innerHTML = `
+
+        <button class="btn back" onclick="saidas()">← Voltar</button>
+
+        <h1>Nova saída</h1>
+
+        <div class="section">
+
+            <div class="form-group">
+                <label>Motivo</label>
+                <input id="saidaMotivo" placeholder="Ex.: compra de material">
+            </div>
+
+            <div class="form-group">
+                <label>Valor</label>
+                <input id="saidaValor" type="number" step="0.01" min="0">
+            </div>
+
+            <div class="form-group">
+                <label>Forma de pagamento</label>
+
+                <select id="saidaPagamento">
+                    <option>Dinheiro</option>
+                    <option>Pix</option>
+                    <option>Débito</option>
+                    <option>Crédito</option>
+                </select>
+
+            </div>
+
+            <button class="btn btn-danger" onclick="salvarSaida()">
+                Registrar saída
+            </button>
+
+        </div>
+    `;
+}
+
+function salvarSaida(id=null){
+
+    const motivo =
+        document.getElementById("saidaMotivo").value.trim();
+
+    const valor =
+        numero(document.getElementById("saidaValor").value);
+
+    const pagamento =
+        document.getElementById("saidaPagamento").value;
+
+    if(!motivo || valor<=0){
+        alert("Informe motivo e valor.");
+        return;
+    }
+
+    if(id){
+
+        const s = dados.saidas.find(x=>x.id===id);
+
+        if(s){
+            s.motivo = motivo;
+            s.valor = valor;
+            s.pagamento = pagamento;
+        }
+
+    }else{
+
+        dados.saidas.push({
+            id:gerarId("saida_"),
+            motivo,
+            valor,
+            pagamento,
+            data:dados.dataAtual || hoje()
+        });
+
+    }
+
+    salvar();
+
+    saidas();
+}
+
+function editarSaida(id){
+
+    const s = dados.saidas.find(x=>x.id===id);
+
+    if(!s) return;
+
+    document.getElementById("app").innerHTML = `
+
+        <button class="btn back" onclick="saidas()">← Voltar</button>
+
+        <h1>Editar saída</h1>
+
+        <div class="section">
+
+            <div class="form-group">
+                <label>Motivo</label>
+                <input id="saidaMotivo" value="${esc(s.motivo)}">
+            </div>
+
+            <div class="form-group">
+                <label>Valor</label>
+                <input id="saidaValor" type="number" step="0.01" value="${s.valor}">
+            </div>
+
+            <div class="form-group">
+                <label>Forma de pagamento</label>
+
+                <select id="saidaPagamento">
+
+                    ${["Dinheiro","Pix","Débito","Crédito"].map(x=>
+                        `<option ${s.pagamento===x?"selected":""}>${x}</option>`
+                    ).join("")}
+
+                </select>
+
+            </div>
+
+            <button class="btn btn-primary"
+                onclick="salvarSaida('${s.id}')">
+                Salvar alterações
+            </button>
+
+        </div>
+    `;
+}
+
+function excluirSaida(id){
+
+    if(!confirm("Excluir esta saída?")) return;
+
+    dados.saidas = dados.saidas.filter(
+        x=>x.id!==id
+    );
+
+    salvar();
+
+    saidas();
+}
+
+
+/* =========================================================
+   FECHAMENTO
+   ========================================================= */
+
+function fechamento(){
+
+    telaAtual = "fechamento";
+
+    marcarNav("navFechamento");
+
+    const data = dados.dataAtual || hoje();
+
+    const dinheiroVendas =
+        totalPorPagamento(data,"Dinheiro");
+
+    const pix =
+        totalPorPagamento(data,"Pix");
+
+    const debito =
+        totalPorPagamento(data,"Débito");
+
+    const credito =
+        totalPorPagamento(data,"Crédito");
+
+    const fiado =
+        totalPorPagamento(data,"Fiado");
+
+    const recebidoFiado =
+        pagamentosFiadosDia(data);
+
+    const saidasTotal =
+        totalSaidasDia(data);
+
+    const esperado =
+        dinheiroEsperado(data);
+
+    document.getElementById("app").innerHTML = `
+
+        <h1>Fechamento</h1>
+
+        <p class="subtitle">
+            ${formatarData(data)}
+        </p>
+
+        <div class="section">
+
+            <h2>Caixa inicial</h2>
+
+            <div class="form-group">
+
+                <label>Valor que havia no caixa no início do dia</label>
+
+                <input
+                    id="caixaInicial"
+                    type="number"
+                    step="0.01"
+                    value="${numero(dados.caixaInicial)}"
+                    onchange="alterarCaixaInicial(this.value)"
+                >
+
+            </div>
+
+        </div>
+
+        <div class="section">
+
+            <h2>Entradas</h2>
+
+            <div class="summary-grid">
+
+                <div class="summary-item">
+                    <span>Dinheiro</span>
+                    <strong>${dinheiro(dinheiroVendas)}</strong>
+                </div>
+
+                <div class="summary-item">
+                    <span>Pix</span>
+                    <strong>${dinheiro(pix)}</strong>
+                </div>
+
+                <div class="summary-item">
+                    <span>Débito</span>
+                    <strong>${dinheiro(debito)}</strong>
+                </div>
+
+                <div class="summary-item">
+                    <span>Crédito</span>
+                    <strong>${dinheiro(credito)}</strong>
+                </div>
+
+                <div class="summary-item">
+                    <span>Fiado</span>
+                    <strong>${dinheiro(fiado)}</strong>
+                </div>
+
+                <div class="summary-item">
+                    <span>Pagamento de fiados</span>
+                    <strong>${dinheiro(recebidoFiado)}</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="section">
+
+            <h2>Resumo</h2>
+
+            <div class="summary-grid">
+
+                <div class="summary-item">
+                    <span>Total de vendas</span>
+                    <strong>${dinheiro(totalVendasDia(data))}</strong>
+                </div>
+
+                <div class="summary-item">
+                    <span>Total de saídas</span>
+                    <strong>${dinheiro(saidasTotal)}</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="section">
+
+            <h2>Conferência do dinheiro</h2>
+
+            <div class="notice">
+                O valor esperado considera somente o dinheiro físico:
+                caixa inicial + vendas em dinheiro + recebimentos em
+                dinheiro - saídas em dinheiro.
+            </div>
+
+            <div class="total-box">
+                <span>Dinheiro esperado</span>
+                <strong>${dinheiro(esperado)}</strong>
+            </div>
+
+            <div class="form-group">
+
+                <label>Quanto há fisicamente no caixa?</label>
+
+                <input
+                    id="dinheiroContado"
+                    type="number"
+                    step="0.01"
+                    placeholder="0,00"
+                    oninput="calcularDiferenca()"
+                >
+
+            </div>
+
+            <div class="total-box">
+
+                <span>Diferença</span>
+
+                <strong id="diferenca">
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+        </div>
+
+        <div class="section">
+
+            <button class="btn btn-blue"
+                onclick="compartilharFechamento()">
+                📤 Compartilhar fechamento
+            </button>
+
+            <button class="btn btn-primary"
+                onclick="imprimirFechamento()">
+                🖨️ Imprimir / salvar PDF
+            </button>
+
+        </div>
+    `;
+}
+
+function alterarCaixaInicial(valor){
+
+    dados.caixaInicial = numero(valor);
+
+    salvar();
+
+    fechamento();
+}
+
+function calcularDiferenca(){
+
+    const contado =
+        numero(document.getElementById("dinheiroContado").value);
+
+    const esperado =
+        dinheiroEsperado(dados.dataAtual || hoje());
+
+    const diferenca =
+        contado - esperado;
+
+    const el =
+        document.getElementById("diferenca");
+
+    el.textContent = dinheiro(diferenca);
+
+    el.className =
+        diferenca===0
+        ? ""
+        : diferenca>0
+        ? "difference-positive"
+        : "difference-negative";
+}
+
+function textoFechamento(){
+
+    const data = dados.dataAtual || hoje();
+
+    return `
+MEU CAIXA
+Fechamento - ${formatarData(data)}
+
+Caixa inicial: ${dinheiro(dados.caixaInicial)}
+
+VENDAS
+Dinheiro: ${dinheiro(totalPorPagamento(data,"Dinheiro"))}
+Pix: ${dinheiro(totalPorPagamento(data,"Pix"))}
+Débito: ${dinheiro(totalPorPagamento(data,"Débito"))}
+Crédito: ${dinheiro(totalPorPagamento(data,"Crédito"))}
+Fiado: ${dinheiro(totalPorPagamento(data,"Fiado"))}
+
+Pagamento de fiados:
+${dinheiro(pagamentosFiadosDia(data))}
+
+Total de vendas:
+${dinheiro(totalVendasDia(data))}
+
+Saídas:
+${dinheiro(totalSaidasDia(data))}
+
+Dinheiro esperado no caixa:
+${dinheiro(dinheiroEsperado(data))}
+`.trim();
+}
+
+function compartilharFechamento(){
+
+    const texto = textoFechamento();
+
+    if(navigator.share){
+
+        navigator.share({
+            title:"Fechamento Meu Caixa",
+            text:texto
+        });
+
+    }else{
+
+        navigator.clipboard.writeText(texto);
+
+        alert("Fechamento copiado para a área de transferência.");
+
+    }
+}
+
+function imprimirFechamento(){
+
+    const texto = textoFechamento();
+
+    const janela = window.open("","_blank");
+
+    if(!janela){
+        alert("O navegador bloqueou a janela de impressão.");
+        return;
+    }
+
+    janela.document.write(`
+        <html>
+        <head>
+            <title>Fechamento Meu Caixa</title>
+            <style>
+                body{
+                    font-family:Arial;
+                    padding:30px;
+                    white-space:pre-line;
+                }
+            </style>
+        </head>
+        <body>
+            ${esc(texto)}
+        </body>
+        </html>
+    `);
+
+    janela.document.close();
+
+    janela.print();
+}
+
+
+/* =========================================================
+   HISTÓRICO
+   ========================================================= */
+
+function historico(){
+
+    document.getElementById("app").innerHTML = `
+
+        <button class="btn back" onclick="menuMais()">← Voltar</button>
+
+        <h1>Histórico</h1>
+
+        <p class="subtitle">
+            Consulte vendas, saídas e movimentações.
+        </p>
+
+        <div class="section">
+
+            <h2>Vendas</h2>
+
+            ${
+                dados.vendas.length
+                ?
+                `<div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Total</th>
+                                <th>Pagamento</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            ${dados.vendas.slice().reverse().map(v=>`
+
+                                <tr>
+
+                                    <td>${formatarData(v.data)}</td>
+
+                                    <td>${dinheiro(v.total)}</td>
+
+                                    <td>
+                                        <span class="badge badge-blue">
+                                            ${v.pagamento}
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <button
+                                            class="btn btn-small btn-blue"
+                                            onclick="detalhesVenda('${v.id}')">
+                                            Ver
+                                        </button>
+                                    </td>
+
+                                </tr>
+
+                            `).join("")}
+
+                        </tbody>
+
+                    </table>
+
+                </div>`
+                :
+                `<div class="empty">Nenhuma venda.</div>`
+            }
+
+        </div>
+
+        <div class="section">
+
+            <h2>Saídas</h2>
+
+            ${
+                dados.saidas.length
+                ?
+                `<div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Motivo</th>
+                                <th>Valor</th>
+                                <th>Pagamento</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            ${dados.saidas.slice().reverse().map(s=>`
+
+                                <tr>
+                                    <td>${formatarData(s.data)}</td>
+                                    <td>${esc(s.motivo)}</td>
+                                    <td>${dinheiro(s.valor)}</td>
+                                    <td>${s.pagamento}</td>
+                                </tr>
+
+                            `).join("")}
+
+                        </tbody>
+
+                    </table>
+
+                </div>`
+                :
+                `<div class="empty">Nenhuma saída.</div>`
+            }
+
+        </div>
+    `;
+}
+
+function detalhesVenda(id){
+
+    const v = dados.vendas.find(x=>x.id===id);
+
+    if(!v) return;
+
+    document.getElementById("app").innerHTML = `
+
+        <button class="btn back" onclick="historico()">← Voltar</button>
+
+        <h1>Detalhes da venda</h1>
+
+        <div class="section">
+
+            <p>
+                <strong>Data:</strong>
+                ${formatarData(v.data)}
+            </p>
+
+            <p>
+                <strong>Pagamento:</strong>
+                ${v.pagamento}
+            </p>
+
+            <hr>
+
+            <h3>Produtos</h3>
+
+            <div class="product-list">
+
+                ${v.itens.map(i=>`
+
+                    <div class="product-row">
+
+                        <div class="product-info">
+                            <div class="product-name">
+                                ${esc(i.nome)}
+                            </div>
+
+                            <div class="product-detail">
+                                ${i.quantidade} × ${dinheiro(i.preco)}
+                            </div>
+                        </div>
+
+                        <strong>
+                            ${dinheiro(i.quantidade*i.preco)}
+                        </strong>
+
+                    </div>
+
+                `).join("")}
+
+            </div>
+
+            <div class="total-box">
+                <span>Total</span>
+                <strong>${dinheiro(v.total)}</strong>
+            </div>
+
+            <div class="actions">
+
+                <button class="btn btn-blue"
+                    onclick="editarVenda('${v.id}')">
+                    Editar
+                </button>
+
+                <button class="btn btn-danger"
+                    onclick="cancelarVenda('${v.id}')">
+                    Cancelar venda
+                </button>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   NOVO DIA
+   ========================================================= */
+
+function novoDia(){
+
+    const novaData = prompt(
+        "Data do novo dia (AAAA-MM-DD):",
+        hoje()
+    );
+
+    if(!novaData) return;
+
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(novaData)){
+        alert("Data inválida.");
+        return;
+    }
+
+    dados.dataAtual = novaData;
+
+    /*
+      O caixa inicial NÃO é automaticamente copiado.
+      Você define o valor do novo dia.
+    */
+
+    const valor = prompt(
+        "Qual será o caixa inicial deste novo dia?",
+        "0"
+    );
+
+    dados.caixaInicial = numero(valor);
+
+    salvar();
+
+    alert("Novo dia iniciado!");
+
+    inicio();
+}
+
+
+/* =========================================================
+   BACKUP
+   ========================================================= */
+
+function backup(){
+
+    const conteudo =
+        JSON.stringify(dados,null,2);
+
+    const blob =
+        new Blob(
+            [conteudo],
+            {type:"application/json"}
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const a =
+        document.createElement("a");
+
+    a.href = url;
+
+    a.download =
+        `meu-caixa-backup-${dados.dataAtual || hoje()}.json`;
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+}
+
+function restaurarBackup(){
+
+    const input =
+        document.createElement("input");
+
+    input.type = "file";
+    input.accept = ".json,application/json";
+
+    input.onchange = function(){
+
+        const arquivo = input.files[0];
+
+        if(!arquivo) return;
+
+        const leitor = new FileReader();
+
+        leitor.onload = function(){
+
+            try{
+
+                const recuperado =
+                    JSON.parse(leitor.result);
+
+                if(!recuperado ||
+                    !Array.isArray(recuperado.produtos) ||
+                    !Array.isArray(recuperado.vendas)
+                ){
+                    throw new Error("Backup inválido");
+                }
+
+                if(!confirm(
+                    "Restaurar este backup substituirá os dados atuais. Continuar?"
+                )){
+                    return;
+                }
+
+                dados = recuperado;
+
+                salvar();
+
+                alert("Backup restaurado!");
+
+                inicio();
+
+            }catch(e){
+
+                alert("Não foi possível restaurar esse backup.");
+                console.error(e);
+
+            }
+        };
+
+        leitor.readAsText(arquivo);
+    };
+
+    input.click();
+}
+
+
+/* =========================================================
+   SEGURANÇA BÁSICA PARA TEXTO
+   ========================================================= */
+
+function esc(texto){
+
+    return String(texto ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+   ========================================================= */
 
 dados.dataAtual =
     dados.dataAtual || hoje();
 
-
-let carrinho = [];
-
-let vendaEditandoId = null;
-
-
-/* =========================
-   FUNÇÕES BÁSICAS
-========================= */
-
-function salvar() {
-
-    localStorage.setItem(
-        CHAVE,
-        JSON.stringify(dados)
-    );
-
-}
-
-
-function id() {
-
-    return Date.now() + Math.random();
-
-}
-
-
-function dinheiro(valor) {
-
-    return Number(valor || 0).toLocaleString(
-        "pt-BR",
-        {
-            style: "currency",
-            currency: "BRL"
-        }
-    );
-
-}
-
-
-function formatarData(data) {
-
-    if (!data) return "";
-
-    const partes =
-        data.split("-");
-
-    if (partes.length !== 3)
-        return data;
-
-    return (
-        partes[2] +
-        "/" +
-        partes[1] +
-        "/" +
-        partes[0]
-    );
-
-}
-
-
-function esc(texto) {
-
-    return String(texto ?? "")
-        .replace(/[&<>"']/g, function(m) {
-
-            return {
-                "&": "&amp;",
-                "<": "&lt;",
-                ">": "&gt;",
-                '"': "&quot;",
-                "'": "&#039;"
-            }[m];
-
-        });
-
-}
-
-
-function atualizarData() {
-
-    document.getElementById(
-        "dataAtual"
-    ).innerText =
-        formatarData(
-            dados.dataAtual
-        );
-
-}
-
-
-/* =========================
-   INÍCIO
-========================= */
-
-function inicio() {
-
-    atualizarData();
-
-    const vendasHoje =
-        dados.vendas.filter(
-            v =>
-                v.data ===
-                dados.dataAtual
-        );
-
-
-    const saidasHoje =
-        dados.saidas.filter(
-            s =>
-                s.data ===
-                dados.dataAtual
-        );
-
-
-    const fiadosPendentes =
-        dados.fiados.filter(
-            f =>
-                f.status ===
-                "Pendente"
-        );
-
-
-    const totalVendas =
-        vendasHoje.reduce(
-            (s, v) =>
-                s + Number(v.total),
-            0
-        );
-
-
-    const totalSaidas =
-        saidasHoje.reduce(
-            (s, v) =>
-                s + Number(v.valor),
-            0
-        );
-
-
-    const totalFiados =
-        fiadosPendentes.reduce(
-            (s, v) =>
-                s + Number(v.valor),
-            0
-        );
-
-
-    document.getElementById(
-        "app"
-    ).innerHTML = `
-
-        <div class="card">
-
-            <strong>
-                Caixa inicial
-            </strong>
-
-            <div class="valor">
-                ${dinheiro(
-                    dados.caixaInicial
-                )}
-            </div>
-
-        </div>
-
-
-        <div class="resumo">
-
-            <div class="card">
-
-                <strong>
-                    Vendas
-                </strong>
-
-                <div class="valor">
-                    ${dinheiro(
-                        totalVendas
-                    )}
-                </div>
-
-            </div>
-
-
-            <div class="card">
-
-                <strong>
-                    Saídas
-                </strong>
-
-                <div class="valor">
-                    ${dinheiro(
-                        totalSaidas
-                    )}
-                </div>
-
-            </div>
-
-
-            <div class="card">
-
-                <strong>
-                    Fiados pendentes
-                </strong>
-
-                <div class="valor">
-                    ${dinheiro(
-                        totalFiados
-                    )}
-                </div>
-
-            </div>
-
-
-            <div class="card">
-
-                <strong>
-                    Produtos
-                </strong>
-
-                <div class="valor">
-                    ${dados.produtos.length}
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="menu">
-
-            <button onclick="novaVenda()">
-                🛒 Nova venda
-            </button>
-
-            <button onclick="estoque()">
-                📦 Estoque
-            </button>
-
-            <button onclick="fiados()">
-                👤 Fiados
-            </button>
-
-            <button onclick="novaSaida()">
-                💸 Saídas
-            </button>
-
-            <button onclick="fechamento()">
-                📊 Fechamento
-            </button>
-
-            <button onclick="historico()">
-                📚 Histórico
-            </button>
-
-            <button onclick="cadastroProdutos()">
-                ⚙️ Produtos
-            </button>
-
-            <button onclick="novoDia()">
-                📅 Novo dia
-            </button>
-
-            <button onclick="backup()">
-                💾 Backup
-            </button>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================
-   PRODUTOS
-========================= */
-
-function cadastroProdutos() {
-
-    let lista = "";
-
-
-    dados.produtos.forEach(
-        function(p, i) {
-
-            lista += `
-
-                <div class="item">
-
-                    <strong>
-                        ${esc(p.nome)}
-                    </strong>
-
-                    <br>
-
-                    Preço:
-                    ${dinheiro(p.preco)}
-
-                    <br>
-
-                    Estoque:
-                    ${p.estoque}
-
-
-                    <div class="item-acoes">
-
-                        <button
-                            onclick="editarProduto(${i})">
-
-                            Editar
-
-                        </button>
-
-
-                        <button
-                            class="perigo"
-                            onclick="excluirProduto(${i})">
-
-                            Excluir
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }
-    );
-
-
-    if (!lista) {
-
-        lista = `
-
-            <div class="vazio">
-
-                Nenhum produto cadastrado.
-
-            </div>
-
-        `;
-
-    }
-
-
-    document.getElementById(
-        "app"
-    ).innerHTML = `
-
-        <h2>
-            Cadastro de produtos
-        </h2>
-
-
-        <div class="card">
-
-            <label>
-                Nome do produto
-            </label>
-
-            <input
-                id="nomeProduto"
-                placeholder="Ex.: Coxinha"
-            >
-
-
-            <label>
-                Preço
-            </label>
-
-            <input
-                id="precoProduto"
-                type="number"
-                step="0.01"
-                min="0"
-                placeholder="0,00"
-            >
-
-
-            <label>
-                Quantidade em estoque
-            </label>
-
-            <input
-                id="estoqueProduto"
-                type="number"
-                min="0"
-                value="0"
-            >
-
-
-            <br><br>
-
-
-            <button
-                onclick="cadastrarProduto()">
-
-                Cadastrar produto
-
-            </button>
-
-        </div>
-
-
-        <hr class="separador">
-
-
-        <h2>
-            Produtos cadastrados
-        </h2>
-
-
-        ${lista}
-
-
-        <button
-            class="secundario"
-            onclick="inicio()">
-
-            Voltar
-
-        </button>
-
-    `;
-
-}
-
-
-function cadastrarProduto() {
-
-    const nome =
-        document
-        .getElementById(
-            "nomeProduto"
-        )
-        .value
-        .trim();
-
-
-    const preco =
-        Number(
-            document
-            .getElementById(
-                "precoProduto"
-            )
-            .value
-        );
-
-
-    const estoque =
-        Number(
-            document
-            .getElementById(
-                "estoqueProduto"
-            )
-            .value
-        );
-
-
-    if (
-        !nome ||
-        preco <= 0 ||
-        estoque < 0
-    ) {
-
-        alert(
-            "Informe nome, preço e estoque válidos."
-        );
-
-        return;
-
-    }
-
-
-    dados.produtos.push({
-
-        id: id(),
-
-        nome: nome,
-
-        preco: preco,
-
-        estoque: estoque
-
-    });
-
-
-    salvar();
-
-    cadastroProdutos();
-
-}
-
-
-function editarProduto(i) {
-
-    const produto =
-        dados.produtos[i];
-
-
-    const nome =
-        prompt(
-            "Nome do produto:",
-            produto.nome
-        );
-
-
-    if (nome === null)
-        return;
-
-
-    const preco =
-        Number(
-            prompt(
-                "Preço:",
-                produto.preco
-            )
-        );
-
-
-    if (
-        !Number.isFinite(preco) ||
-        preco <= 0
-    ) {
-
-        alert("Preço inválido.");
-
-        return;
-
-    }
-
-
-    const estoque =
-        Number(
-            prompt(
-                "Estoque atual:",
-                produto.estoque
-            )
-        );
-
-
-    if (
-        !Number.isFinite(estoque) ||
-        estoque < 0
-    ) {
-
-        alert("Estoque inválido.");
-
-        return;
-
-    }
-
-
-    produto.nome =
-        nome.trim() || produto.nome;
-
-    produto.preco =
-        preco;
-
-    produto.estoque =
-        estoque;
-
-
-    salvar();
-
-    cadastroProdutos();
-
-}
-
-
-function excluirProduto(i) {
-
-    const produto =
-        dados.produtos[i];
-
-
-    const usado =
-        dados.vendas.some(
-            venda =>
-                venda.itens?.some(
-                    item =>
-                        item.produtoId ===
-                        produto.id
-                )
-        );
-
-
-    if (usado) {
-
-        alert(
-            "Este produto já aparece em uma venda e não pode ser excluído."
-        );
-
-        return;
-
-    }
-
-
-    if (
-        confirm(
-            `Excluir ${produto.nome}?`
-        )
-    ) {
-
-        dados.produtos.splice(
-            i,
-            1
-        );
-
-        salvar();
-
-        cadastroProdutos();
-
-    }
-
-}
-
-
-/* =========================
-   ESTOQUE
-========================= */
-
-function estoque() {
-
-    let lista = "";
-
-
-    dados.produtos.forEach(
-        function(p, i) {
-
-            lista += `
-
-                <div class="item">
-
-                    <strong>
-                        ${esc(p.nome)}
-                    </strong>
-
-                    <br>
-
-                    Estoque atual:
-
-                    <strong>
-                        ${p.estoque}
-                    </strong>
-
-
-                    <div class="item-acoes">
-
-                        <button
-                            onclick="entradaEstoque(${i})">
-
-                            + Entrada
-
-                        </button>
-
-
-                        <button
-                            onclick="perdaEstoque(${i})">
-
-                            − Perda
-
-                        </button>
-
-
-                        <button
-                            onclick="ajustarEstoque(${i})">
-
-                            Ajustar
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }
-    );
-
-
-    if (!lista) {
-
-        lista = `
-
-            <div class="vazio">
-
-                Cadastre produtos primeiro.
-
-            </div>
-
-        `;
-
-    }
-
-
-    document.getElementById(
-        "app"
-    ).innerHTML = `
-
-        <h2>
-            Estoque
-        </h2>
-
-        ${lista}
-
-
-        <button
-            class="secundario"
-            onclick="inicio()">
-
-            Voltar
-
-        </button>
-
-    `;
-
-}
-
-
-function entradaEstoque(i) {
-
-    const quantidade =
-        Number(
-            prompt(
-                "Quantas unidades entraram?"
-            )
-        );
-
-
-    if (
-        !Number.isFinite(quantidade) ||
-        quantidade <= 0
-    ) {
-
-        alert(
-            "Quantidade inválida."
-        );
-
-        return;
-
-    }
-
-
-    dados.produtos[i].estoque +=
-        quantidade;
-
-
-    salvar();
-
-    estoque();
-
-}
-
-
-function perdaEstoque(i) {
-
-    const produto =
-        dados.produtos[i];
-
-
-    const quantidade =
-        Number(
-            prompt(
-                `Quantas unidades de ${produto.nome} foram perdidas?`
-            )
-        );
-
-
-    if (
-        !Number.isFinite(quantidade) ||
-        quantidade <= 0 ||
-        quantidade > produto.estoque
-    ) {
-
-        alert(
-            "Quantidade inválida."
-        );
-
-        return;
-
-    }
-
-
-    produto.estoque -=
-        quantidade;
-
-
-    salvar();
-
-    estoque();
-
-}
-
-
-function ajustarEstoque(i) {
-
-    const quantidade =
-        Number(
-            prompt(
-                "Nova quantidade em estoque:",
-                dados.produtos[i].estoque
-            )
-        );
-
-
-    if (
-        !Number.isFinite(quantidade) ||
-        quantidade < 0
-    ) {
-
-        alert(
-            "Quantidade inválida."
-        );
-
-        return;
-
-    }
-
-
-    dados.produtos[i].estoque =
-        quantidade;
-
-
-    salvar();
-
-    estoque();
-
-}
-
-
-/* =========================
-   NOVA VENDA
-========================= */
-
-function novaVenda() {
-
-    carrinho = [];
-
-    vendaEditandoId = null;
-
-    mostrarVenda();
-
-}
-
-
-function editarVenda(vendaId) {
-
-    const venda =
-        dados.vendas.find(
-            v =>
-                v.id ===
-                vendaId
-        );
-
-
-    if (!venda)
-        return;
-
-
-    /*
-       Devolve os produtos
-       da venda antiga ao estoque.
-    */
-
-    venda.itens.forEach(
-        item => {
-
-            const produto =
-                dados.produtos.find(
-                    p =>
-                        p.id ===
-                        item.produtoId
-                );
-
-
-            if (produto) {
-
-                produto.estoque +=
-                    Number(
-                        item.quantidade
-                    );
-
-            }
-
-        }
-    );
-
-
-    carrinho =
-        JSON.parse(
-            JSON.stringify(
-                venda.itens
-            )
-        );
-
-
-    vendaEditandoId =
-        vendaId;
-
-
-    salvar();
-
-    mostrarVenda();
-
-}
-
-
-function mostrarVenda() {
-
-    let opcoes = `
-
-        <option value="">
-            Selecione um produto
-        </option>
-
-    `;
-
-
-    dados.produtos.forEach(
-        function(p, i) {
-
-            opcoes += `
-
-                <option value="${i}">
-
-                    ${esc(p.nome)}
-                    -
-                    ${dinheiro(p.preco)}
-
-                    |
-                    Estoque:
-                    ${p.estoque}
-
-                </option>
-
-            `;
-
-        }
-    );
-
-
-    let itens = "";
-
-
-    carrinho.forEach(
-        function(item, i) {
-
-            itens += `
-
-                <div class="item">
-
-                    <strong>
-                        ${esc(item.nome)}
-                    </strong>
-
-                    <br>
-
-                    ${item.quantidade}
-                    x
-                    ${dinheiro(item.preco)}
-
-                    =
-
-                    <strong>
-                        ${dinheiro(item.total)}
-                    </strong>
-
-
-                    <div class="item-acoes">
-
-                        <button
-                            class="perigo"
-                            onclick="removerCarrinho(${i})">
-
-                            Remover
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }
-    );
-
-
-    const total =
-        carrinho.reduce(
-            (s, item) =>
-                s +
-                Number(item.total),
-            0
-        );
-
-
-    const vendaAtual =
-        vendaEditandoId
-        ? dados.vendas.find(
-            v =>
-                v.id ===
-                vendaEditandoId
-        )
-        : null;
-
-
-    document.getElementById(
-        "app"
-    ).innerHTML = `
-
-        <h2>
-
-            ${
-                vendaEditandoId
-                ? "Editar venda"
-                : "Nova venda"
-            }
-
-        </h2>
-
-
-        <div class="card">
-
-            <label>
-                Produto
-            </label>
-
-            <select
-                id="produtoVenda"
-                onchange="preencherPrecoVenda()">
-
-                ${opcoes}
-
-            </select>
-
-
-            <label>
-                Quantidade
-            </label>
-
-            <input
-                id="quantidadeVenda"
-                type="number"
-                min="1"
-                value="1"
-            >
-
-
-            <label>
-                Valor unitário
-            </label>
-
-            <input
-                id="valorVenda"
-                readonly
-            >
-
-
-            <br><br>
-
-
-            <button
-                onclick="adicionarCarrinho()">
-
-                Adicionar produto
-
-            </button>
-
-        </div>
-
-
-        <h3>
-            Itens da venda
-        </h3>
-
-
-        ${
-            itens ||
-            `
-                <div class="vazio">
-
-                    Nenhum produto adicionado.
-
-                </div>
-            `
-        }
-
-
-        <div class="total-box">
-
-            Total:
-            ${dinheiro(total)}
-
-        </div>
-
-
-        <div class="card">
-
-            <label>
-                Forma de pagamento
-            </label>
-
-
-            <select
-                id="pagamentoVenda">
-
-                <option
-                    ${
-                        vendaAtual?.pagamento ===
-                        "Dinheiro"
-                        ? "selected"
-                        : ""
-                    }
-                >
-                    Dinheiro
-                </option>
-
-
-                <option
-                    ${
-                        vendaAtual?.pagamento ===
-                        "Pix"
-                        ? "selected"
-                        : ""
-                    }
-                >
-                    Pix
-                </option>
-
-
-                <option
-                    ${
-                        vendaAtual?.pagamento ===
-                        "Débito"
-                        ? "selected"
-                        : ""
-                    }
-                >
-                    Débito
-                </option>
-
-
-                <option
-                    ${
-                        vendaAtual?.pagamento ===
-                        "Crédito"
-                        ? "selected"
-                        : ""
-                    }
-                >
-                    Crédito
-                </option>
-
-
-                <option
-                    ${
-                        vendaAtual?.pagamento ===
-                        "Fiado"
-                        ? "selected"
-                        : ""
-                    }
-                >
-                    Fiado
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <button
-            onclick="registrarVenda()">
-
-            ${
-                vendaEditandoId
-                ? "Salvar alteração"
-                : "Registrar venda"
-            }
-
-        </button>
-
-
-        <br><br>
-
-
-        <button
-            class="secundario"
-            onclick="inicio()">
-
-            Cancelar
-
-        </button>
-
-    `;
-
-}
-
-
-function preencherPrecoVenda() {
-
-    const indice =
-        document.getElementById(
-            "produtoVenda"
-        ).value;
-
-
-    const campo =
-        document.getElementById(
-            "valorVenda"
-        );
-
-
-    if (indice === "") {
-
-        campo.value = "";
-
-        return;
-
-    }
-
-
-    campo.value =
-        Number(
-            dados.produtos[indice].preco
-        ).toFixed(2);
-
-}
-
-
-function adicionarCarrinho() {
-
-    const indice =
-        document.getElementById(
-            "produtoVenda"
-        ).value;
-
-
-    const quantidade =
-        Number(
-            document.getElementById(
-                "quantidadeVenda"
-            ).value
-        );
-
-
-    if (
-        indice === "" ||
-        quantidade <= 0
-    ) {
-
-        alert(
-            "Selecione um produto e informe uma quantidade válida."
-        );
-
-        return;
-
-    }
-
-
-    const produto =
-        dados.produtos[indice];
-
-
-    const existente =
-        carrinho.find(
-            item =>
-                item.produtoId ===
-                produto.id
-        );
-
-
-    const quantidadeTotal =
-        (
-            existente
-            ? existente.quantidade
-            : 0
-        ) +
-        quantidade;
-
-
-    if (
-        quantidadeTotal >
-        produto.estoque
-    ) {
-
-        alert(
-            `Estoque insuficiente. Disponível: ${produto.estoque}`
-        );
-
-        return;
-
-    }
-
-
-    if (existente) {
-
-        existente.quantidade =
-            quantidadeTotal;
-
-
-        existente.total =
-            quantidadeTotal *
-            existente.preco;
-
-    } else {
-
-        carrinho.push({
-
-            produtoId:
-                produto.id,
-
-            nome:
-                produto.nome,
-
-            preco:
-                Number(
-                    produto.preco
-                ),
-
-            quantidade:
-                quantidade,
-
-            total:
-                Number(
-                    produto.preco
-                ) *
-                quantidade
-
-        });
-
-    }
-
-
-    /*
-       Reserva o estoque
-       enquanto a venda está sendo montada.
-    */
-
-    produto.estoque -=
-        quantidade;
-
-
-    salvar();
-
-    mostrarVenda();
-
-}
-
-
-function removerCarrinho(i) {
-
-    const item =
-        carrinho[i];
-
-
-    const produto =
-        dados.produtos.find(
-            p =>
-                p.id ===
-                item.produtoId
-        );
-
-
-    if (produto) {
-
-        produto.estoque +=
-            Number(
-                item.quantidade
-            );
-
-    }
-
-
-    carrinho.splice(
-        i,
-        1
-    );
-
-
-    salvar();
-
-    mostrarVenda();
-
-}
-
-
-function registrarVenda() {
-
-    if (
-        carrinho.length === 0
-    ) {
-
-        alert(
-            "Adicione pelo menos um produto."
-        );
-
-        return;
-
-    }
-
-
-    const pagamento =
-        document.getElementById(
-            "pagamentoVenda"
-        ).value;
-
-
-    const total =
-        carrinho.reduce(
-            (s, item) =>
-                s +
-                Number(item.total),
-            0
-        );
-
-
-    const vendaExistente =
-        vendaEditandoId
-        ? dados.vendas.find(
-            v =>
-                v.id ===
-                vendaEditandoId
-        )
-        : null;
-
-
-    /*
-       FIADO
-    */
-
-    if (
-        pagamento ===
-        "Fiado"
-    ) {
-
-        let pessoa = "";
-
-
-        if (
-            vendaExistente &&
-            vendaExistente.fiadoId
-        ) {
-
-            const fiado =
-                dados.fiados.find(
-                    f =>
-                        f.id ===
-                        vendaExistente.fiadoId
-                );
-
-
-            if (fiado) {
-
-                pessoa =
-                    fiado.pessoa;
-
-            }
-
-        }
-
-
-        pessoa =
-            prompt(
-                "Nome da pessoa:",
-                pessoa
-            );
-
-
-        if (!pessoa) {
-
-            /*
-               Se a venda estava sendo editada,
-               devolve o estoque porque a operação
-               foi cancelada.
-            */
-
-            carrinho.forEach(
-                item => {
-
-                    const produto =
-                        dados.produtos.find(
-                            p =>
-                                p.id ===
-                                item.produtoId
-                        );
-
-                    if (produto) {
-
-                        produto.estoque +=
-                            Number(
-                                item.quantidade
-                            );
-
-                    }
-
-                }
-            );
-
-
-            salvar();
-
-            return;
-
-        }
-
-
-        if (
-            vendaExistente &&
-            vendaExistente.fiadoId
-        ) {
-
-            const fiado =
-                dados.fiados.find(
-                    f =>
-                        f.id ===
-                        vendaExistente.fiadoId
-                );
-
-
-            if (fiado) {
-
-                fiado.pessoa =
-                    pessoa;
-
-                fiado.valor =
-                    total;
-
-            }
-
-        } else {
-
-            const novoFiado = {
-
-                id: id(),
-
-                pessoa:
-                    pessoa,
-
-                valor:
-                    total,
-
-                data:
-                    dados.dataAtual,
-
-                status:
-                    "Pendente",
-
-                pagamento:
-                    null
-
-            };
-
-
-            dados.fiados.push(
-                novoFiado
-            );
-
-
-            if (vendaExistente) {
-
-                vendaExistente.fiadoId =
-                    novoFiado.id;
-
-            }
-
-        }
-
-    }
-
-
-    /*
-       Se uma venda que era fiado
-       passar para outro pagamento,
-       remove o fiado relacionado.
-    */
-
-    if (
-        vendaExistente &&
-        vendaExistente.fiadoId &&
-        pagamento !== "Fiado"
-    ) {
-
-        dados.fiados =
-            dados.fiados.filter(
-                f =>
-                    f.id !==
-                    vendaExistente.fiadoId
-            );
-
-    }
-
-
-    /*
-       SALVAR VENDA
-    */
-
-    if (vendaExistente) {
-
-        vendaExistente.itens =
-            JSON.parse(
-                JSON.stringify(
-                    carrinho
-                )
-            );
-
-
-        vendaExistente.total =
-            total;
-
-
-        vendaExistente.pagamento =
-            pagamento;
-
-    } else {
-
-        dados.vendas.push({
-
-            id: id(),
-
-            data:
-                dados.dataAtual,
-
-            itens:
-                JSON.parse(
-                    JSON.stringify(
-                        carrinho
-                    )
-                ),
-
-            total:
-                total,
-
-            pagamento:
-                pagamento
-
-        });
-
-    }
-
-
-    salvar();
-
-
-    carrinho = [];
-
-    vendaEditandoId =
-        null;
-
-
-    alert(
-        "Venda salva com sucesso!"
-    );
-
-
-    inicio();
-
-}
-
-
-function cancelarVenda(vendaId) {
-
-    const venda =
-        dados.vendas.find(
-            v =>
-                v.id ===
-                vendaId
-        );
-
-
-    if (!venda)
-        return;
-
-
-    if (
-        !confirm(
-            "Cancelar esta venda? Os produtos voltarão ao estoque."
-        )
-    ) {
-
-        return;
-
-    }
-
-
-    venda.itens.forEach(
-        item => {
-
-            const produto =
-                dados.produtos.find(
-                    p =>
-                        p.id ===
-                        item.produtoId
-                );
-
-
-            if (produto) {
-
-                produto.estoque +=
-                    Number(
-                        item.quantidade
-                    );
-
-            }
-
-        }
-    );
-
-
-    if (venda.fiadoId) {
-
-        dados.fiados =
-            dados.fiados.filter(
-                f =>
-                    f.id !==
-                    venda.fiadoId
-            );
-
-    }
-
-
-    dados.vendas =
-        dados.vendas.filter(
-            v =>
-                v.id !==
-                vendaId
-        );
-
-
-    salvar();
-
-    historico();
-
-}
-
-
-/* =========================
-   SAÍDAS
-========================= */
-
-function novaSaida(
-    saidaId = null
-) {
-
-    const saida =
-        saidaId
-        ? dados.saidas.find(
-            s =>
-                s.id ===
-                saidaId
-        )
-        : null;
-
-
-    document.getElementById(
-        "app"
-    ).innerHTML = `
-
-        <h2>
-
-            ${
-                saida
-                ? "Editar saída"
-                : "Nova saída"
-            }
-
-        </h2>
-
-
-        <div class="card">
-
-            <label>
-                Motivo
-            </label>
-
-            <input
-                id="motivoSaida"
-                value="${
-                    esc(
-                        saida?.motivo || ""
-                    )
-                }"
-                placeholder="Ex.: Compra de material"
-            >
-
-
-            <label>
-                Valor
-            </label>
-
-            <input
-                id="valorSaida"
-                type="number"
-                step="0.01"
-                min="0"
-                value="${
-                    saida?.valor ?? ""
-                }"
-            >
-
-
-            <label>
-                Forma de pagamento
-            </label>
-
-            <select
-                id="pagamentoSaida">
-
-                <option
-                    ${
-                        saida?.pagamento ===
-                        "Dinheiro"
-                        ? "selected"
-                        : ""
-                    }
-                >
-                    Dinheiro
-                </option>
-
-                <option
-                    ${
-                        saida?.pagamento ===
-                        "Pix"
-                        ? "selected"
-                        : ""
-                    }
-                >
-                    Pix
-                </option>
-
-                <option
-                    ${
-                        saida?.pagamento ===
-                        "Débito"
-                        ? "selected"
-                        : ""
-                    }
-                >
-                    Débito
-                </option>
-
-                <option
-                    ${
-                        saida?.pagamento ===
-                        "Crédito"
-                        ? "selected"
-                        : ""
-                    }
-                >
-                    Crédito
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <button
-            onclick="registrarSaida('${saidaId || ""}')">
-
-            ${
-                saida
-                ? "Salvar alteração"
-                : "Registrar saída"
-            }
-
-        </button>
-
-
-        <br><br>
-
-
-        <button
-            class="secundario"
-            onclick="historico()">
-
-            Voltar
-
-        </button>
-
-    `;
-
-}
-
-
-function registrarSaida(
-    saidaId
-) {
-
-    const motivo =
-        document.getElementById(
-            "motivoSaida"
-        ).value.trim();
-
-
-    const valor =
-        Number(
-            document.getElementById(
-                "valorSaida"
-            ).value
-        );
-
-
-    const pagamento =
-        document.getElementById(
-            "pagamentoSaida"
-        ).value;
-
-
-    if (
-        !motivo ||
-        valor <= 0
-    ) {
-
-        alert(
-            "Preencha os dados corretamente."
-        );
-
-        return;
-
-    }
-
-
-    if (saidaId) {
-
-        const saida =
-            dados.saidas.find(
-                s =>
-                    String(s.id) ===
-                    String(saidaId)
-            );
-
-
-        if (saida) {
-
-            saida.motivo =
-                motivo;
-
-            saida.valor =
-                valor;
-
-            saida.pagamento =
-                pagamento;
-
-        }
-
-    } else {
-
-        dados.saidas.push({
-
-            id: id(),
-
-            motivo:
-                motivo,
-
-            valor:
-                valor,
-
-            pagamento:
-                pagamento,
-
-            data:
-                dados.dataAtual
-
-        });
-
-    }
-
-
-    salvar();
-
-    historico();
-
-}
-
-
-function excluirSaida(
-    saidaId
-) {
-
-    if (
-        confirm(
-            "Excluir esta saída?"
-        )
-    ) {
-
-        dados.saidas =
-            dados.saidas.filter(
-                s =>
-                    String(s.id) !==
-                    String(saidaId)
-            );
-
-
-        salvar();
-
-        historico();
-
-    }
-
-}
-
-
-/* =========================
-   FIADOS
-========================= */
-
-function fiados() {
-
-    const pendentes =
-        dados.fiados.filter(
-            f =>
-                f.status ===
-                "Pendente"
-        );
-
-
-    const pagos =
-        dados.fiados.filter(
-            f =>
-                f.status ===
-                "Pago"
-        );
-
-
-    let html =
-        pendentes.map(
-            f => `
-
-                <div class="item">
-
-                    <strong>
-                        ${esc(f.pessoa)}
-                    </strong>
-
-                    <br>
-
-                    Valor:
-
-                    <strong>
-                        ${dinheiro(f.valor)}
-                    </strong>
-
-                    <br>
-
-                    Data:
-                    ${formatarData(f.data)}
-
-
-                    <div class="item-acoes">
-
-                        <button
-                            class="sucessoBtn"
-                            onclick="pagarFiado(${f.id})">
-
-                            Registrar pagamento
-
-                        </button>
-
-
-                        <button
-                            onclick="editarFiado(${f.id})">
-
-                            Editar
-
-                        </button>
-
-
-                        <button
-                            class="perigo"
-                            onclick="excluirFiado(${f.id})">
-
-                            Excluir
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `
-        ).join("");
-
-
-    if (!html) {
-
-        html = `
-
-            <div class="vazio">
-
-                Nenhum fiado pendente.
-
-            </div>
-
-        `;
-
-    }
-
-
-    let pagosHtml =
-        pagos.map(
-            f => `
-
-                <div class="item">
-
-                    <strong>
-                        ${esc(f.pessoa)}
-                    </strong>
-
-                    <br>
-
-                    ${dinheiro(f.valor)}
-
-                    <br>
-
-                    Venda:
-                    ${formatarData(f.data)}
-
-                    <br>
-
-                    Pago em:
-                    ${formatarData(
-                        f.dataPagamento
-                    )}
-
-                    <br>
-
-                    Pagamento:
-                    ${esc(
-                        f.pagamento || ""
-                    )}
-
-                </div>
-
-            `
-        ).join("");
-
-
-    if (!pagosHtml) {
-
-        pagosHtml = `
-
-            <div class="vazio">
-
-                Nenhum fiado pago.
-
-            </div>
-
-        `;
-
-    }
-
-
-    document.getElementById(
-        "app"
-    ).innerHTML = `
-
-        <h2>
-            Fiados
-        </h2>
-
-
-        <h3>
-            Pendentes
-        </h3>
-
-
-        ${html}
-
-
-        <button
-            onclick="novoFiado()">
-
-            + Novo fiado
-
-        </button>
-
-
-        <hr class="separador">
-
-
-        <h3>
-            Pagos
-        </h3>
-
-
-        ${pagosHtml}
-
-
-        <br>
-
-
-        <button
-            class="secundario"
-            onclick="inicio()">
-
-            Voltar
-
-        </button>
-
-    `;
-
-}
-
-
-function novoFiado() {
-
-    const pessoa =
-        prompt(
-            "Nome da pessoa:"
-        );
-
-
-    if (!pessoa)
-        return;
-
-
-    const valor =
-        Number(
-            prompt(
-                "Valor do fiado:"
-            )
-        );
-
-
-    if (
-        !Number.isFinite(valor) ||
-        valor <= 0
-    ) {
-
-        alert(
-            "Valor inválido."
-        );
-
-        return;
-
-    }
-
-
-    dados.fiados.push({
-
-        id: id(),
-
-        pessoa:
-            pessoa,
-
-        valor:
-            valor,
-
-        data:
-            dados.dataAtual,
-
-        status:
-            "Pendente",
-
-        pagamento:
-            null
-
-    });
-
-
-    salvar();
-
-    fiados();
-
-}
-
-
-function editarFiado(
-    fiadoId
-) {
-
-    const fiado =
-        dados.fiados.find(
-            f =>
-                f.id ===
-                fiadoId
-        );
-
-
-    if (!fiado)
-        return;
-
-
-    const pessoa =
-        prompt(
-            "Nome:",
-            fiado.pessoa
-        );
-
-
-    if (pessoa === null)
-        return;
-
-
-    const valor =
-        Number(
-            prompt(
-                "Valor:",
-                fiado.valor
-            )
-        );
-
-
-    if (
-        !Number.isFinite(valor) ||
-        valor <= 0
-    ) {
-
-        alert(
-            "Valor inválido."
-        );
-
-        return;
-
-    }
-
-
-    fiado.pessoa =
-        pessoa.trim() ||
-        fiado.pessoa;
-
-
-    fiado.valor =
-        valor;
-
-
-    salvar();
-
-    fiados();
-
-}
-
-
-function excluirFiado(
-    fiadoId
-) {
-
-    if (
-        confirm(
-            "Excluir este fiado?"
-        )
-    ) {
-
-        dados.fiados =
-            dados.fiados.filter(
-                f =>
-                    f.id !==
-                    fiadoId
-            );
-
-
-        salvar();
-
-        fiados();
-
-    }
-
-}
-
-
-function pagarFiado(
-    fiadoId
-) {
-
-    const fiado =
-        dados.fiados.find(
-            f =>
-                f.id ===
-                fiadoId
-        );
-
-
-    if (!fiado)
-        return;
-
-
-    const pagamento =
-        prompt(
-            "Forma de pagamento:\n\n" +
-            "Dinheiro\n" +
-            "Pix\n" +
-            "Débito\n" +
-            "Crédito"
-        );
-
-
-    if (
-        ![
-            "Dinheiro",
-            "Pix",
-            "Débito",
-            "Crédito"
-        ].includes(pagamento)
-    ) {
-
-        alert(
-            "Escolha: Dinheiro, Pix, Débito ou Crédito."
-        );
-
-        return;
-
-    }
-
-
-    fiado.status =
-        "Pago";
-
-
-    fiado.pagamento =
-        pagamento;
-
-
-    fiado.dataPagamento =
-        dados.dataAtual;
-
-
-    salvar();
-
-    fiados();
-
-}
-
-
-/* =========================
-   FECHAMENTO
-========================= */
-
-function calcularDadosFechamento(
-    data
-) {
-
-    const vendas =
-        dados.vendas.filter(
-            v =>
-                v.data ===
-                data
-        );
-
-
-    const saidas =
-        dados.saidas.filter(
-            s =>
-                s.data ===
-                data
-        );
-
-
-    function soma(
-        lista,
-        funcao
-    ) {
-
-        return lista.reduce(
-            (total, item) =>
-                total +
-                Number(
-                    funcao(item) || 0
-                ),
-            0
-        );
-
-    }
-
-
-    const dinheiroVendas =
-        soma(
-            vendas,
-            v =>
-                v.pagamento ===
-                "Dinheiro"
-                ? v.total
-                : 0
-        );
-
-
-    const pix =
-        soma(
-            vendas,
-            v =>
-                v.pagamento ===
-                "Pix"
-                ? v.total
-                : 0
-        );
-
-
-    const debito =
-        soma(
-            vendas,
-            v =>
-                v.pagamento ===
-                "Débito"
-                ? v.total
-                : 0
-        );
-
-
-    const credito =
-        soma(
-            vendas,
-            v =>
-                v.pagamento ===
-                "Crédito"
-                ? v.total
-                : 0
-        );
-
-
-    const fiado =
-        soma(
-            vendas,
-            v =>
-                v.pagamento ===
-                "Fiado"
-                ? v.total
-                : 0
-        );
-
-
-    const pagamentos =
-        dados.fiados.filter(
-            f =>
-                f.status ===
-                "Pago" &&
-                f.dataPagamento ===
-                data
-        );
-
-
-    const pagamentosDinheiro =
-        soma(
-            pagamentos,
-            f =>
-                f.pagamento ===
-                "Dinheiro"
-                ? f.valor
-                : 0
-        );
-
-
-    const pagamentosPix =
-        soma(
-            pagamentos,
-            f =>
-                f.pagamento ===
-                "Pix"
-                ? f.valor
-                : 0
-        );
-
-
-    const pagamentosDebito =
-        soma(
-            pagamentos,
-            f =>
-                f.pagamento ===
-                "Débito"
-                ? f.valor
-                : 0
-        );
-
-
-    const pagamentosCredito =
-        soma(
-            pagamentos,
-            f =>
-                f.pagamento ===
-                "Crédito"
-                ? f.valor
-                : 0
-        );
-
-
-    const saidasTotal =
-        soma(
-            saidas,
-            s => s.valor
-        );
-
-
-    const saidasDinheiro =
-        soma(
-            saidas,
-            s =>
-                s.pagamento ===
-                "Dinheiro"
-                ? s.valor
-                : 0
-        );
-
-
-    const totalVendas =
-        soma(
-            vendas,
-            v => v.total
-        );
-
-
-    const totalRecebido =
-        dinheiroVendas +
-        pix +
-        debito +
-        credito +
-        pagamentosDinheiro +
-        pagamentosPix +
-        pagamentosDebito +
-        pagamentosCredito;
-
-
-    const caixaEsperado =
-        Number(
-            dados.caixaInicial
-        ) +
-        dinheiroVendas +
-        pagamentosDinheiro -
-        saidasDinheiro;
-
-
-    return {
-
-        vendas,
-
-        saidas,
-
-        pagamentos,
-
-        dinheiroVendas,
-
-        pix,
-
-        debito,
-
-        credito,
-
-        fiado,
-
-        pagamentosDinheiro,
-
-        pagamentosPix,
-
-        pagamentosDebito,
-
-        pagamentosCredito,
-
-        saidasTotal,
-
-        saidasDinheiro,
-
-        totalVendas,
-
-        totalRecebido,
-
-        caixaEsperado
-
-    };
-
-}
-
-
-function fechamento() {
-
-    const x =
-        calcularDadosFechamento(
-            dados.dataAtual
-        );
-
-
-    document.getElementById(
-        "app"
-    ).innerHTML = `
-
-        <h2>
-            Fechamento
-        </h2>
-
-
-        <div class="card">
-
-            <strong>
-                Data
-            </strong>
-
-            <div class="valor">
-
-                ${formatarData(
-                    dados.dataAtual
-                )}
-
-            </div>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                Vendas
-            </h3>
-
-
-            Dinheiro:
-
-            <strong>
-                ${dinheiro(
-                    x.dinheiroVendas
-                )}
-            </strong>
-
-            <br><br>
-
-
-            Pix:
-
-            <strong>
-                ${dinheiro(x.pix)}
-            </strong>
-
-            <br><br>
-
-
-            Débito:
-
-            <strong>
-                ${dinheiro(x.debito)}
-            </strong>
-
-            <br><br>
-
-
-            Crédito:
-
-            <strong>
-                ${dinheiro(x.credito)}
-            </strong>
-
-            <br><br>
-
-
-            Fiados:
-
-            <strong>
-                ${dinheiro(x.fiado)}
-            </strong>
-
-
-            <hr>
-
-
-            Total de vendas:
-
-            <strong>
-                ${dinheiro(
-                    x.totalVendas
-                )}
-            </strong>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                Pagamentos de fiados
-            </h3>
-
-
-            Dinheiro:
-
-            ${dinheiro(
-                x.pagamentosDinheiro
-            )}
-
-            <br><br>
-
-
-            Pix:
-
-            ${dinheiro(
-                x.pagamentosPix
-            )}
-
-            <br><br>
-
-
-            Débito:
-
-            ${dinheiro(
-                x.pagamentosDebito
-            )}
-
-            <br><br>
-
-
-            Crédito:
-
-            ${dinheiro(
-                x.pagamentosCredito
-            )}
-
-            <hr>
-
-
-            Total recebido:
-
-            <strong>
-                ${dinheiro(
-                    x.totalRecebido
-                )}
-            </strong>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                Saídas
-            </h3>
-
-
-            Total:
-
-            <strong>
-                ${dinheiro(
-                    x.saidasTotal
-                )}
-            </strong>
-
-            <br><br>
-
-
-            Em dinheiro:
-
-            <strong>
-                ${dinheiro(
-                    x.saidasDinheiro
-                )}
-            </strong>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                Caixa físico
-            </h3>
-
-
-            Caixa inicial:
-
-            ${dinheiro(
-                dados.caixaInicial
-            )}
-
-
-            <br><br>
-
-
-            <strong>
-                Caixa esperado:
-
-                ${dinheiro(
-                    x.caixaEsperado
-                )}
-            </strong>
-
-
-            <label>
-                Dinheiro contado
-            </label>
-
-
-            <input
-                id="caixaContado"
-                type="number"
-                step="0.01"
-                placeholder="0,00"
-            >
-
-
-            <br><br>
-
-
-            <button
-                onclick="calcularDiferenca(${x.caixaEsperado})">
-
-                Calcular diferença
-
-            </button>
-
-
-            <p
-                id="diferenca">
-            </p>
-
-        </div>
-
-
-        <button
-            onclick="compartilharFechamento()">
-
-            📤 Compartilhar fechamento
-
-        </button>
-
-
-        <br><br>
-
-
-        <button
-            class="secundario"
-            onclick="inicio()">
-
-            Voltar
-
-        </button>
-
-    `;
-
-}
-
-
-function calcularDiferenca(
-    esperado
-) {
-
-    const contado =
-        Number(
-            document.getElementById(
-                "caixaContado"
-            ).value
-        );
-
-
-    const diferenca =
-        contado -
-        esperado;
-
-
-    document.getElementById(
-        "diferenca"
-    ).innerHTML = `
-
-        Caixa contado:
-
-        <strong>
-            ${dinheiro(contado)}
-        </strong>
-
-        <br>
-
-        Diferença:
-
-        <strong
-            class="${
-                diferenca < 0
-                ? "negativo"
-                : "positivo"
-            }">
-
-            ${dinheiro(diferenca)}
-
-        </strong>
-
-    `;
-
-}
-
-
-/* =========================
-   HISTÓRICO
-========================= */
-
-function historico() {
-
-    const datas =
-        new Set();
-
-
-    datas.add(
-        dados.dataAtual
-    );
-
-
-    dados.vendas.forEach(
-        v =>
-            datas.add(v.data)
-    );
-
-
-    dados.saidas.forEach(
-        s =>
-            datas.add(s.data)
-    );
-
-
-    dados.fiados.forEach(
-        f => {
-
-            datas.add(f.data);
-
-            if (
-                f.dataPagamento
-            ) {
-
-                datas.add(
-                    f.dataPagamento
-                );
-
-            }
-
-        }
-    );
-
-
-    const lista =
-        Array.from(datas)
-            .sort()
-            .reverse();
-
-
-    let html = "";
-
-
-    lista.forEach(
-        data => {
-
-            const total =
-                dados.vendas
-                    .filter(
-                        v =>
-                            v.data ===
-                            data
-                    )
-                    .reduce(
-                        (s, v) =>
-                            s +
-                            Number(
-                                v.total
-                            ),
-                        0
-                    );
-
-
-            html += `
-
-                <div class="item">
-
-                    <strong>
-
-                        ${formatarData(
-                            data
-                        )}
-
-                    </strong>
-
-                    <br>
-
-                    Vendas:
-
-                    ${dinheiro(
-                        total
-                    )}
-
-
-                    <div class="item-acoes">
-
-                        <button
-                            onclick="detalhesDia('${data}')">
-
-                            Ver detalhes
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }
-    );
-
-
-    document.getElementById(
-        "app"
-    ).innerHTML = `
-
-        <h2>
-            Histórico
-        </h2>
-
-
-        ${
-            html ||
-            `
-                <div class="vazio">
-
-                    Ainda não há histórico.
-
-                </div>
-            `
-        }
-
-
-        <button
-            class="secundario"
-            onclick="inicio()">
-
-            Voltar
-
-        </button>
-
-    `;
-
-}
-
-
-function detalhesDia(
-    data
-) {
-
-    const vendas =
-        dados.vendas.filter(
-            v =>
-                v.data ===
-                data
-        );
-
-
-    const saidas =
-        dados.saidas.filter(
-            s =>
-                s.data ===
-                data
-        );
-
-
-    const fiados =
-        dados.fiados.filter(
-            f =>
-                f.data ===
-                data
-        );
-
-
-    const pagamentos =
-        dados.fiados.filter(
-            f =>
-                f.status ===
-                "Pago" &&
-                f.dataPagamento ===
-                data
-        );
-
-
-    let html = `
-
-        <h2>
-            ${formatarData(data)}
-        </h2>
-
-
-        <h3>
-            Vendas
-        </h3>
-
-    `;
-
-
-    if (
-        vendas.length === 0
-    ) {
-
-        html += `
-
-            <div class="vazio">
-
-                Nenhuma venda.
-
-            </div>
-
-        `;
-
-    } else {
-
-        vendas.forEach(
-            venda => {
-
-                html += `
-
-                    <div class="item">
-
-                        <strong>
-
-                            ${dinheiro(
-                                venda.total
-                            )}
-
-                        </strong>
-
-
-                        <br>
-
-                        Pagamento:
-
-                        ${esc(
-                            venda.pagamento
-                        )}
-
-
-                        <br><br>
-
-
-                        ${
-                            (venda.itens || [])
-                                .map(
-                                    item =>
-                                        `
-                                        ${item.quantidade}
-                                        x
-                                        ${esc(item.nome)}
-                                        -
-                                        ${dinheiro(item.preco)}
-                                        `
-                                )
-                                .join("<br>")
-                        }
-
-
-                        <div class="item-acoes">
-
-                            <button
-                                onclick="editarVenda(${venda.id})">
-
-                                Editar
-
-                            </button>
-
-
-                            <button
-                                class="perigo"
-                                onclick="cancelarVenda(${venda.id})">
-
-                                Cancelar
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            }
-        );
-
-    }
-
-
-    html += `
-
-        <h3>
-            Saídas
-        </h3>
-
-    `;
-
-
-    if (
-        saidas.length === 0
-    ) {
-
-        html += `
-
-            <div class="vazio">
-
-                Nenhuma saída.
-
-            </div>
-
-        `;
-
-    } else {
-
-        saidas.forEach(
-            saida => {
-
-                html += `
-
-                    <div class="item">
-
-                        ${esc(
-                            saida.motivo
-                        )}
-
-                        <br>
-
-                        ${dinheiro(
-                            saida.valor
-                        )}
-
-                        <br>
-
-                        ${esc(
-                            saida.pagamento
-                        )}
-
-
-                        <div class="item-acoes">
-
-                            <button
-                                onclick="novaSaida(${saida.id})">
-
-                                Editar
-
-                            </button>
-
-
-                            <button
-                                class="perigo"
-                                onclick="excluirSaida(${saida.id})">
-
-                                Excluir
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            }
-        );
-
-    }
-
-
-    html += `
-
-        <h3>
-            Fiados criados
-        </h3>
-
-    `;
-
-
-    if (
-        fiados.length === 0
-    ) {
-
-        html += `
-
-            <div class="vazio">
-
-                Nenhum fiado criado.
-
-            </div>
-
-        `;
-
-    } else {
-
-        fiados.forEach(
-            fiado => {
-
-                html += `
-
-                    <div class="item">
-
-                        ${esc(
-                            fiado.pessoa
-                        )}
-
-                        -
-
-                        ${dinheiro(
-                            fiado.valor
-                        )}
-
-                        -
-
-                        ${esc(
-                            fiado.status
-                        )}
-
-                    </div>
-
-                `;
-
-            }
-        );
-
-    }
-
-
-    html += `
-
-        <h3>
-            Pagamentos de fiados recebidos
-        </h3>
-
-    `;
-
-
-    if (
-        pagamentos.length === 0
-    ) {
-
-        html += `
-
-            <div class="vazio">
-
-                Nenhum pagamento recebido.
-
-            </div>
-
-        `;
-
-    } else {
-
-        pagamentos.forEach(
-            fiado => {
-
-                html += `
-
-                    <div class="item">
-
-                        ${esc(
-                            fiado.pessoa
-                        )}
-
-                        -
-
-                        ${dinheiro(
-                            fiado.valor
-                        )}
-
-                        -
-
-                        ${esc(
-                            fiado.pagamento
-                        )}
-
-                    </div>
-
-                `;
-
-            }
-        );
-
-    }
-
-
-    html += `
-
-        <button
-            class="secundario"
-            onclick="historico()">
-
-            Voltar
-
-        </button>
-
-    `;
-
-
-    document.getElementById(
-        "app"
-    ).innerHTML =
-        html;
-
-}
-
-
-/* =========================
-   NOVO DIA
-========================= */
-
-function novoDia() {
-
-    const novaData =
-        prompt(
-            "Digite a data do novo dia (AAAA-MM-DD):",
-            hoje()
-        );
-
-
-    if (!novaData)
-        return;
-
-
-    if (
-        !/^\d{4}-\d{2}-\d{2}$/.test(
-            novaData
-        )
-    ) {
-
-        alert(
-            "Use o formato AAAA-MM-DD."
-        );
-
-        return;
-
-    }
-
-
-    const caixa =
-        Number(
-            prompt(
-                "Qual será o caixa inicial deste dia?",
-                "0"
-            )
-        );
-
-
-    if (
-        !Number.isFinite(caixa) ||
-        caixa < 0
-    ) {
-
-        alert(
-            "Valor inválido."
-        );
-
-        return;
-
-    }
-
-
-    dados.dataAtual =
-        novaData;
-
-
-    dados.caixaInicial =
-        caixa;
-
-
-    salvar();
-
-    inicio();
-
-}
-
-
-/* =========================
-   COMPARTILHAR
-========================= */
-
-function gerarTextoFechamento() {
-
-    const x =
-        calcularDadosFechamento(
-            dados.dataAtual
-        );
-
-
-    const fiadosCriados =
-        dados.fiados.filter(
-            f =>
-                f.data ===
-                dados.dataAtual
-        );
-
-
-    const fiadosPendentes =
-        fiadosCriados.filter(
-            f =>
-                f.status ===
-                "Pendente"
-        );
-
-
-    const totalPendentes =
-        fiadosPendentes.reduce(
-            (s, f) =>
-                s +
-                Number(f.valor),
-            0
-        );
-
-
-    return `
-
-MEU CAIXA
-
-Data:
-${formatarData(dados.dataAtual)}
-
-
-========================
-VENDAS
-========================
-
-Dinheiro:
-${dinheiro(x.dinheiroVendas)}
-
-Pix:
-${dinheiro(x.pix)}
-
-Débito:
-${dinheiro(x.debito)}
-
-Crédito:
-${dinheiro(x.credito)}
-
-Fiadas:
-${dinheiro(x.fiado)}
-
-TOTAL DE VENDAS:
-${dinheiro(x.totalVendas)}
-
-
-========================
-PAGAMENTOS DE FIADOS
-========================
-
-Dinheiro:
-${dinheiro(x.pagamentosDinheiro)}
-
-Pix:
-${dinheiro(x.pagamentosPix)}
-
-Débito:
-${dinheiro(x.pagamentosDebito)}
-
-Crédito:
-${dinheiro(x.pagamentosCredito)}
-
-TOTAL RECEBIDO:
-${dinheiro(x.totalRecebido)}
-
-
-========================
-FIADOS
-========================
-
-Pendentes criados no dia:
-${dinheiro(totalPendentes)}
-
-
-${
-    fiadosCriados.length
-    ?
-    fiadosCriados
-        .map(
-            f =>
-                `${f.pessoa} - ${dinheiro(f.valor)} - ${f.status}`
-        )
-        .join("\n")
-    :
-    "Nenhum fiado criado neste dia."
-}
-
-
-========================
-SAÍDAS
-========================
-
-Total:
-${dinheiro(x.saidasTotal)}
-
-Em dinheiro:
-${dinheiro(x.saidasDinheiro)}
-
-
-========================
-CAIXA
-========================
-
-Caixa inicial:
-${dinheiro(dados.caixaInicial)}
-
-Caixa esperado:
-${dinheiro(x.caixaEsperado)}
-
-
-Gerado pelo Meu Caixa.
-
-`;
-
-}
-
-
-function compartilharFechamento() {
-
-    const texto =
-        gerarTextoFechamento();
-
-
-    if (
-        navigator.share
-    ) {
-
-        navigator.share({
-
-            title:
-                "Fechamento Meu Caixa",
-
-            text:
-                texto
-
-        });
-
-    } else {
-
-        navigator
-            .clipboard
-            .writeText(texto)
-            .then(
-                () => {
-
-                    alert(
-                        "Fechamento copiado para a área de transferência."
-                    );
-
-                }
-            );
-
-    }
-
-}
-
-
-/* =========================
-   BACKUP
-========================= */
-
-function backup() {
-
-    const texto =
-        JSON.stringify(
-            dados,
-            null,
-            2
-        );
-
-
-    const blob =
-        new Blob(
-            [texto],
-            {
-                type:
-                    "application/json"
-            }
-        );
-
-
-    const url =
-        URL.createObjectURL(
-            blob
-        );
-
-
-    const a =
-        document.createElement(
-            "a"
-        );
-
-
-    a.href =
-        url;
-
-
-    a.download =
-        `backup-meu-caixa-${dados.dataAtual}.json`;
-
-
-    a.click();
-
-
-    URL.revokeObjectURL(
-        url
-    );
-
-}
-
-
-/* =========================
-   INICIAR
-========================= */
+salvar();
 
 inicio();
 
