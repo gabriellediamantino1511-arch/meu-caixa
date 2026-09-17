@@ -1134,19 +1134,45 @@ function editarProduto(id){
     `;
 }
 
-function excluirProduto(id){
+function excluirProduto(i) {
 
-    const p = dados.produtos.find(x=>x.id===id);
+    const produto = dados.produtos[i];
 
-    if(!p) return;
+    if (!produto) {
+        alert("Produto não encontrado.");
+        return;
+    }
 
-    if(!confirm(`Excluir o produto "${p.nome}"?`)) return;
+    // Verifica se o produto já aparece em alguma venda
+    const foiVendido = dados.vendas.some(venda =>
+        venda.itens &&
+        venda.itens.some(item =>
+            item.produtoId === produto.id
+        )
+    );
 
-    dados.produtos = dados.produtos.filter(x=>x.id!==id);
+    if (foiVendido) {
+
+        alert(
+            `Não é possível excluir "${produto.nome}" porque ele possui vendas no histórico.\n\n` +
+            `Para preservar o histórico do caixa, esse produto deve permanecer cadastrado.`
+        );
+
+        return;
+    }
+
+    const confirmar = confirm(
+        `Excluir "${produto.nome}"?\n\n` +
+        `Essa ação não poderá ser desfeita.`
+    );
+
+    if (!confirmar) return;
+
+    dados.produtos.splice(i, 1);
 
     salvar();
 
-    produtos();
+    cadastroProdutos();
 }
 
 
