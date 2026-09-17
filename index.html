@@ -1134,18 +1134,25 @@ function editarProduto(id){
     `;
 }
 
-function excluirProduto(i) {
+function excluirProduto(idOuIndice) {
 
-    if (
-        i === undefined ||
-        i === null ||
-        !dados.produtos[i]
-    ) {
+    // Primeiro tenta encontrar pelo ID do produto
+    let indice = dados.produtos.findIndex(
+        p => String(p.id) === String(idOuIndice)
+    );
+
+    // Se não encontrar pelo ID, tenta usar como índice
+    if (indice === -1 && dados.produtos[idOuIndice]) {
+        indice = Number(idOuIndice);
+    }
+
+    // Produto realmente não encontrado
+    if (indice === -1 || !dados.produtos[indice]) {
         alert("Produto não encontrado.");
         return;
     }
 
-    const produto = dados.produtos[i];
+    const produto = dados.produtos[indice];
 
     const confirmar = confirm(
         `Excluir "${produto.nome}"?`
@@ -1153,27 +1160,12 @@ function excluirProduto(i) {
 
     if (!confirmar) return;
 
-    dados.produtos.splice(i, 1);
+    dados.produtos.splice(indice, 1);
 
     salvar();
 
     cadastroProdutos();
 }
-
-    const confirmar = confirm(
-        `Excluir "${produto.nome}"?\n\n` +
-        `Essa ação não poderá ser desfeita.`
-    );
-
-    if (!confirmar) return;
-
-    dados.produtos.splice(i, 1);
-
-    salvar();
-
-    cadastroProdutos();
-}
-
 
 /* =========================================================
    ESTOQUE
