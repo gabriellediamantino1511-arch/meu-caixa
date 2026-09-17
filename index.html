@@ -1136,30 +1136,29 @@ function editarProduto(id){
 
 function excluirProduto(i) {
 
-    const produto = dados.produtos[i];
-
-    if (!produto) {
+    if (
+        i === undefined ||
+        i === null ||
+        !dados.produtos[i]
+    ) {
         alert("Produto não encontrado.");
         return;
     }
 
-    // Verifica se o produto já aparece em alguma venda
-    const foiVendido = dados.vendas.some(venda =>
-        venda.itens &&
-        venda.itens.some(item =>
-            item.produtoId === produto.id
-        )
+    const produto = dados.produtos[i];
+
+    const confirmar = confirm(
+        `Excluir "${produto.nome}"?`
     );
 
-    if (foiVendido) {
+    if (!confirmar) return;
 
-        alert(
-            `Não é possível excluir "${produto.nome}" porque ele possui vendas no histórico.\n\n` +
-            `Para preservar o histórico do caixa, esse produto deve permanecer cadastrado.`
-        );
+    dados.produtos.splice(i, 1);
 
-        return;
-    }
+    salvar();
+
+    cadastroProdutos();
+}
 
     const confirmar = confirm(
         `Excluir "${produto.nome}"?\n\n` +
